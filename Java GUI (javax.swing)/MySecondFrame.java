@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 
 import java.awt.Color;
 
+
 public class MySecondFrame extends JFrame {
     
     // We can use a class for a frame 
