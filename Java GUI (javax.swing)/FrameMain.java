@@ -3,10 +3,17 @@ import javax.swing.JFrame;
 
 import java.awt.Color;
 
+
+/* 
+Jframe inherits methods from Frame, Window, Container, Component and Object
+--> search to see all the classes
+*/
+
+
 /**
  * Frame's class
  */
-public class Frame {
+public class FrameMain {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();  // create a frame 
@@ -21,7 +28,7 @@ public class Frame {
         frame.setVisible(true); // make a frame visible
 
 
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);   // exit out of the application
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // exit out of the application
         /*
         #JAVADOC# 
         EXIT_ON_CLOSE         --> Exit the application using the System exit method. Use this only in applications. 
@@ -49,7 +56,7 @@ public class Frame {
 
 
 
-
+        new MySecondFrame();
 
 
 
