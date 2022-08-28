@@ -4,6 +4,8 @@ package Game.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import Game.board.Board;
 import Game.board.Cell;
 
@@ -20,6 +22,13 @@ public class Bishop extends Piece {
         this.death = false;
         this.teamColor = "white";
         this.board = board;
+        
+        if (this.teamColor == "white") {
+            this.image = new ImageIcon("./images/Chess_blt60.png");
+        } else {
+            this.image = new ImageIcon("./images/Chess_bdt60.png");
+        }
+
     }
 
     

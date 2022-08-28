@@ -1,7 +1,10 @@
 package Game.pieces;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import Game.board.Board;
 import Game.board.Cell;
@@ -20,6 +23,12 @@ public class Pawn extends Piece{
         this.death = false;
         this.teamColor = "white";
         this.board = board;
+
+        if (this.teamColor == "white") {
+            this.image = new ImageIcon("./images/Chess_plt60.png");
+        } else {
+            this.image = new ImageIcon("./images/Chess_pdt60.png");
+        }
     }
 
 

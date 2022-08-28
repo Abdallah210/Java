@@ -2,9 +2,8 @@ package Game.board;
 
 import java.awt.Color;
 
-import javax.swing.JFrame;
+//import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.plaf.ColorUIResource;
 
 import Game.pieces.Piece;
 
@@ -139,8 +138,8 @@ public class Cell {
 
 
     public static void main(String[] args) {
-        Cell c1 = new Cell(2, 3);
-        Cell c2 = new Cell(0, 0);
+        //Cell c1 = new Cell(2, 3);
+        //Cell c2 = new Cell(0, 0);
 
         /* 
         JFrame frame = new JFrame();

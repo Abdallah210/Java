@@ -21,9 +21,11 @@ public class Board {
         this.frame.setTitle("Chess");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setVisible(true);
-        //frame.setResizable(false);   
+        //this.frame.setResizable(false);   
+
         ImageIcon icon = new ImageIcon("./images/icon.png");  
         this.frame.setIconImage(icon.getImage());
+
 
         //Cells :
         for (int i = 0; i < 8; i++) {
@@ -41,9 +43,11 @@ public class Board {
             }
         }
 
+
         this.frame.setBounds(0, 0,  908, 987);
         this.frame.getRootPane().setBorder(BorderFactory.createMatteBorder(40, 5, 20, 5, Color.gray));
         this.frame.setLocation(500, 25);
+        //this.frame.pack();
     }
 
     private boolean isPair(int number) {
@@ -71,7 +75,7 @@ public class Board {
 
 
     public static void main(String[] args) {
-        Board b = new Board();
+        new Board();
 
 
     }

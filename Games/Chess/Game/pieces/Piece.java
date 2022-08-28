@@ -1,7 +1,11 @@
 package Game.pieces;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import Game.board.Board;
 import Game.board.Cell;
@@ -15,6 +19,7 @@ public abstract class Piece {
     protected String teamColor;
     protected boolean death;
     protected Board board;
+    protected ImageIcon image;
     
     public abstract void move(String newPosition);
     public abstract List<Cell> possibleCellsToMoveOn();
@@ -61,6 +66,19 @@ public abstract class Piece {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public JLabel getLabel() {
+
+        JLabel label = new JLabel();
+
+        ImageIcon pieceImage = this.image;
+        label.setIcon(pieceImage);
+        
+        label.setVerticalAlignment(JLabel.CENTER); 
+        label.setHorizontalAlignment(JLabel.CENTER);  
+
+        return label;
     }
 
 
