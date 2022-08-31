@@ -97,15 +97,14 @@ public class Cell {
         this.color = newColor;
     }
 
-    public void setStatueOfCell() {
-        this.empty = !this.empty;
-        if (this.empty == false) {
-            this.piece = null;
-        }
+    public void deletePieceInCell() {
+        this.piece = null;
+        this.empty = true;
     }
 
     public void addPieceInCell(Piece piece) {
         this.piece = piece;
+        this.empty = false;
     }
 
     public void setLetter(String newLetter) {
