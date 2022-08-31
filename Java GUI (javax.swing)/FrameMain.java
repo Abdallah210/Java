@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import java.awt.Color;
 
 
+import secondaryFiles.*;
+
+
 /* 
 Jframe inherits methods from Frame, Window, Container, Component and Object
 --> search to see all the classes
