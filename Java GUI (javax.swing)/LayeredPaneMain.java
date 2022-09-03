@@ -65,6 +65,9 @@ public class LayeredPaneMain {
             lp.add(label, Integer.valueOf(counter));  // sets the level of component 0 1 2 3 ...
             counter++;
         }
+        // We can also use name of levels :
+        // containerName.add(componentName, JLayeredPane.DEFAULT)  
+        // names of levels : default -> palette -> modal -> popUp -> drag
 
         frame.add(lp);
 
