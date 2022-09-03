@@ -11,7 +11,11 @@ public class GridLayoutMain {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(750,750);
-        frame.setLayout(new GridLayout(3, 3));  // the x,y sets number of rowns and cols in the grid
+
+        frame.setLayout(new GridLayout(3, 3, 5, 5));  
+        // GridLayout(x, y, z, k) : the (x, y) sets number of rowns and cols in the grid   x->rows        y->cols
+        //                          ths (Z, k) sets the space between components           z->horzontal   k->vertical
+
 
         JButton b1 = new JButton("1");
         JButton b2 = new JButton("2");
