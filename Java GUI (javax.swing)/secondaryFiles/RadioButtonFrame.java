@@ -20,7 +20,7 @@ public class RadioButtonFrame extends JFrame implements ActionListener {
     public RadioButtonFrame(){
         
         //Frame :
-        this.setTitle("Check boxes");
+        this.setTitle("Radio button");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(350, 230);
         this.setLayout(new FlowLayout());
