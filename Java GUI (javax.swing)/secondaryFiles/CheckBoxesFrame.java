@@ -31,7 +31,7 @@ public class CheckBoxesFrame extends JFrame implements ActionListener {
 
 
         //Frame :
-        this.setTitle("Radio boxes");
+        this.setTitle("Check boxes");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(350, 230);
         this.setLayout(new FlowLayout());
