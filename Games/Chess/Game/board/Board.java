@@ -1,10 +1,14 @@
 package Game.board;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+
+import java.awt.GridLayout;
 import java.awt.Color;
+
+
+
 
 /**
  * Board's class
@@ -12,24 +16,21 @@ import java.awt.Color;
 public class Board {
 
     private Cell[][] cells =  new Cell[8][8];
-    private JFrame frame;
+    private JPanel boardPanel;
 
     public Board() {
 
-        //Frame :
-        this.frame = new JFrame();
-        this.frame.setTitle("Chess");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setVisible(true);
-        //this.frame.setResizable(false);   
+        this.boardPanel = new JPanel();
 
-        ImageIcon icon = new ImageIcon("./images/icon.png");  
-        this.frame.setIconImage(icon.getImage());
+        
+        //this.boardPanel.setBounds(448, 28,  800, 800);
+        this.boardPanel.setLayout(new GridLayout(8,8));
 
+        this.boardPanel.setBorder(BorderFactory.createLineBorder(new Color(0x8fabc0), 4));
 
         //Cells :
         for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+              for (int j = 0; j < 8; j++) {
 
                 this.cells[i][j] = new Cell(i, j);
 
@@ -39,46 +40,23 @@ public class Board {
                 }
 
                 //Panel :
-                frame.add(this.cells[i][j].cellDesign());
+                boardPanel.add(this.cells[i][j].cellDesign());
             }
         }
-
-
-        this.frame.setBounds(0, 0,  908, 987);
-        this.frame.getRootPane().setBorder(BorderFactory.createMatteBorder(40, 5, 20, 5, Color.gray));
-        this.frame.setLocation(500, 25);
-        //this.frame.pack();
     }
 
     private boolean isPair(int number) {
         return number % 2 == 0;
     }
 
-
-
     public Cell getCell(int x, int y) {
             return this.cells[x][y];
     }
 
-    public JFrame getFrame() {
-        return this.frame;
+    public JPanel getBoardPanel() {
+        return this.boardPanel;
     }
 
-
-
-
-
-
-
-
-
-
-
-    public static void main(String[] args) {
-        new Board();
-
-
-    }
 
 
 }
