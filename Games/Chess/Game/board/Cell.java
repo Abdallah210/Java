@@ -131,23 +131,8 @@ public class Cell {
             square.setBackground(squareColor);
         }
 
-        square.setBounds(110*this.x, 110*this.y, 110, 110);
+        square.setBounds(100*this.x, 100*this.y, 100, 100);
         return square;
-    }
-
-
-    public static void main(String[] args) {
-        //Cell c1 = new Cell(2, 3);
-        //Cell c2 = new Cell(0, 0);
-
-        /* 
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setSize(960, 960);
-        frame.add(c1.cellDesign());
-        frame.add(c2.cellDesign());
-        */
     }
 
 }
