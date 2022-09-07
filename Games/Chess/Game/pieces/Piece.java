@@ -68,6 +68,12 @@ public abstract class Piece {
         this.y = y;
     }
 
+    public void setTeamColor(String teamColor) {
+        this.teamColor = teamColor;
+    }
+
+
+
     public JLabel getLabel() {
 
         JLabel label = new JLabel();
