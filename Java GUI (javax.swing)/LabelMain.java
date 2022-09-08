@@ -15,7 +15,6 @@ public class LabelMain {
         // Label :
 
         JLabel label = new JLabel();   // create a label (or JLabel label = new JLabel("My first label !"); )
-        label.setText("My first label !");  //sets the text of label
    
         ImageIcon image = new ImageIcon("images/hxh.jpg");
         label.setIcon(image);
