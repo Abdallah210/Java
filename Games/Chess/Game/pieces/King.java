@@ -16,6 +16,7 @@ public class King extends Piece{
 
 
     public King(int x, int y, Board board){
+
         this.x = x;
         this.y = y;
         this.name = "King";
@@ -23,12 +24,20 @@ public class King extends Piece{
         this.death = false;
         this.teamColor = "white";
         this.board = board;
-                
-        if (this.teamColor == "white") {
-            this.image = new ImageIcon("./images/Chess_klt60.png");
-        } else {
-            this.image = new ImageIcon("./images/Chess_kdt60.png");
-        }
+        this.image = new ImageIcon("./images/Chess_klt60.png");
+
+    }
+
+    
+    public void move(String newPosition) {
+        //TO DO...
+    }
+
+
+    @Override
+    public void setTeamColor(String teamColor) {
+        this.teamColor = teamColor;
+        this.image = new ImageIcon("./images/Chess_kdt60.png");
     }
 
 
@@ -142,22 +151,6 @@ public class King extends Piece{
 
 
         return cells;
-    }
-
-
-    public void move(String newPosition) {
-        
-    }
-
-
-    
-    public static void main(String[] args) {
-        Board b = new Board();
-        King k = new King(0, 0, b);
-        List<Cell> cells = k.possibleCellsToMoveOn();
-       for (Cell cell : cells) {System.out.println(cell.fullNameOfCell());}
-
-
     }
 
 

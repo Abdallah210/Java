@@ -23,11 +23,21 @@ public class Queen extends Piece {
         this.teamColor = "white";
         this.board = board;
 
-        if (this.teamColor == "white") {
             this.image = new ImageIcon("./images/Chess_qlt60.png");
-        } else {
-            this.image = new ImageIcon("./images/Chess_qdt60.png");
-        }
+
+    }
+
+
+    @Override
+    public void setTeamColor(String teamColor) {
+        this.teamColor = teamColor;
+        this.image = new ImageIcon("./images/Chess_qdt60.png");
+
+    }
+
+    
+    public void move(String newPosition) {
+        //TO DO...
     }
 
     
@@ -148,11 +158,6 @@ public class Queen extends Piece {
         return cells;
     }
 
-
-    public void move(String newPosition) {
-        
-    }
-
     private int greaterBetween(int num1, int num2) {
         if (num1 > num2) {
             return num1;
@@ -169,12 +174,5 @@ public class Queen extends Piece {
         }
     }
 
-    
-    public static void main(String[] args) {
-        Board b = new Board();
-        Queen r = new Queen(3, 5, b);
-        List<Cell> cells = r.possibleCellsToMoveOn();
-       for (Cell cell : cells) {System.out.println(cell.fullNameOfCell());}
-    }
 
 }

@@ -21,13 +21,9 @@ public class Board {
     public Board() {
 
         this.boardPanel = new JPanel();
-
-        
-        //this.boardPanel.setBounds(448, 28,  800, 800);
         this.boardPanel.setLayout(new GridLayout(8,8));
-
         this.boardPanel.setBorder(BorderFactory.createLineBorder(new Color(0x8fabc0), 4));
-
+         
         //Cells :
         for (int i = 0; i < 8; i++) {
               for (int j = 0; j < 8; j++) {
@@ -36,11 +32,12 @@ public class Board {
 
                 //Color :
                 if (this.isPair(i) == this.isPair(j)) {
-                    cells[i][j].setColor("black");
+                    cells[i][j].setCellLabelColor(new Color(0x455565));
                 }
-
+ 
                 //Panel :
-                boardPanel.add(this.cells[i][j].cellDesign());
+                this.cells[i][j].getCellLabel().setLayout(null);
+                boardPanel.add(this.cells[i][j].getCellLabel());
             }
         }
     }
@@ -56,7 +53,6 @@ public class Board {
     public JPanel getBoardPanel() {
         return this.boardPanel;
     }
-
 
 
 }

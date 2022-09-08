@@ -23,13 +23,24 @@ public class Rook extends Piece {
         this.teamColor = "white";
         this.board = board;
 
-        if (this.teamColor == "white") {
+
             this.image = new ImageIcon("./images/Chess_rlt60.png");
-        } else {
-            this.image = new ImageIcon("./images/Chess_rdt60.png");
-        }
+
+
     }
 
+
+    @Override
+    public void setTeamColor(String teamColor) {
+        this.teamColor = teamColor;
+        this.image = new ImageIcon("./images/Chess_rdt60.png");
+
+    }
+    
+
+    public void move(String newPosition) {
+        //TO DO...
+    }
 
 
     public List<Cell> possibleCellsToMoveOn() {
@@ -100,16 +111,5 @@ public class Rook extends Piece {
     }
 
 
-    public void move(String newPosition) {
-        
-    }
-
-
-    public static void main(String[] args) {
-        Board b = new Board();
-        Rook r = new Rook(3, 5, b);
-        List<Cell> cells = r.possibleCellsToMoveOn();
-       for (Cell cell : cells) {System.out.println(cell.fullNameOfCell());}
-    }
 
 }

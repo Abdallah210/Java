@@ -16,6 +16,7 @@ public class Pawn extends Piece{
 
 
     public Pawn(int x, int y, Board board){
+
         this.x = x;
         this.y = y;
         this.name = "Pawn";
@@ -23,20 +24,28 @@ public class Pawn extends Piece{
         this.death = false;
         this.teamColor = "white";
         this.board = board;
+        this.image = new ImageIcon("./images/Chess_plt60.png");
 
-        if (this.teamColor == "white") {
-            this.image = new ImageIcon("./images/Chess_plt60.png");
-        } else {
-            this.image = new ImageIcon("./images/Chess_pdt60.png");
-        }
     }
-
 
 
     //Pawn method :
     public void promotion() {  
-        // todo
+        // TO DO...
     }
+
+
+    public void move(String newPosition) {
+        //TO DO...
+    }
+
+
+    @Override
+    public void setTeamColor(String teamColor) {
+        this.teamColor = teamColor;
+        this.image = new ImageIcon("./images/Chess_pdt60.png");
+    }
+
 
     public List<Cell> possibleCellsToMoveOn() {
 
@@ -74,25 +83,6 @@ public class Pawn extends Piece{
 
 
         return cells;
-    }
-
-
-    public void move(String newPosition) {
-        
-    }
-
-
-    
-    public static void main(String[] args) {
-        Board b = new Board();
-        Pawn p1 = new Pawn(2, 7, b);
-        List<Cell> cells = p1.possibleCellsToMoveOn();
-       for (Cell cell : cells) {System.out.println(cell.fullNameOfCell());}
-       System.out.println("---------------");
-       Pawn p2 = new Pawn(1, 1, b);
-       List<Cell> cells2 = p2.possibleCellsToMoveOn();
-      for (Cell cell : cells2) {System.out.println(cell.fullNameOfCell());}
-
     }
 
 

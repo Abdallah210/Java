@@ -20,12 +20,11 @@ public abstract class Piece {
     protected boolean death;
     protected Board board;
     protected ImageIcon image;
+    protected JLabel label;
     
     public abstract void move(String newPosition);
+    public abstract void setTeamColor(String newColor);
     public abstract List<Cell> possibleCellsToMoveOn();
-    //public abstract List<String> nameOfPossibleCellsToMoveOn();
-    //public abstract String getTeamColor();
-    //public abstract void killed();
 
 
     public int getX() {
@@ -52,6 +51,10 @@ public abstract class Piece {
         return this.teamColor;
     }
 
+    public ImageIcon getImage() {
+        return this.image;
+    }
+
     public boolean isDeath() {
         return this.death;
     }
@@ -66,25 +69,6 @@ public abstract class Piece {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    public void setTeamColor(String teamColor) {
-        this.teamColor = teamColor;
-    }
-
-
-
-    public JLabel getLabel() {
-
-        JLabel label = new JLabel();
-
-        ImageIcon pieceImage = this.image;
-        label.setIcon(pieceImage);
-        
-        label.setVerticalAlignment(JLabel.CENTER); 
-        label.setHorizontalAlignment(JLabel.CENTER);  
-
-        return label;
     }
 
 

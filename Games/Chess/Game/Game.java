@@ -4,22 +4,24 @@ package Game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-//import java.awt.FlowLayout;
 
-//import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import Game.board.Board;
 
 
 public class Game extends JFrame {
 
-    Board board = new Board();
+    private Board board = new Board();
                 
-    ImageIcon icon = new ImageIcon("images/icon.png");  
+    private ImageIcon icon = new ImageIcon("images/icon.png");  
 
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+    private Player player1 = new Player("white", this.board, false);
+    private Player player2 = new Player("black", this.board, true);
 
 
     Game(){
@@ -30,8 +32,7 @@ public class Game extends JFrame {
         this.setTitle("Chess");
         this.setIconImage(icon.getImage());
 
-        this.getContentPane().setBackground(new Color(0x455565));
-        //this.getRootPane().setBorder(BorderFactory.createLineBorder(40, 5, 20, 5, Color.gray));
+        this.getContentPane().setBackground(new Color(0x3f4953));
 
         this.setLayout(null);
 
@@ -46,18 +47,26 @@ public class Game extends JFrame {
         int y = (int) ((screenSize.getHeight() - this.getHeight()) / 2);
         this.setLocation(x, y-30);
 
-        this.board.getBoardPanel().setBounds((this.getWidth()-802)/2, 28,  800, 800);
+        this.board.getBoardPanel().setBounds((this.getWidth()-702)/2, 75,  700, 700);
 
+        Player[] players = {player1, player2};
+
+        for (Player player : players) {
+            
+            for (int i = 0; i < player.getPositions().length; i++) {
+                this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).addPieceInCell(player.getPieces()[i]);
+
+                this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).setCellLabelIcon(this.board.getCell((int)player.getPositions()[i].getX(), (int)player1.getPositions()[i].getY()).getPiece().getImage());
+                this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).getCellLabel().setHorizontalAlignment(JLabel.CENTER);
+                this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).getCellLabel().setVerticalAlignment(JLabel.CENTER);
+            }
+        }
 
         this.add(board.getBoardPanel());
 
 
     
     }
-
-
-
-
 
 
 

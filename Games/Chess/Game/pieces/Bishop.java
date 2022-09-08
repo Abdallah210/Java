@@ -15,6 +15,7 @@ import Game.board.Cell;
 public class Bishop extends Piece {
 
     public Bishop(int x, int y, Board board){
+
         this.x = x;
         this.y = y;
         this.name = "Bishop";
@@ -22,12 +23,20 @@ public class Bishop extends Piece {
         this.death = false;
         this.teamColor = "white";
         this.board = board;
-        
-        if (this.teamColor == "white") {
-            this.image = new ImageIcon("./images/Chess_blt60.png");
-        } else {
-            this.image = new ImageIcon("./images/Chess_bdt60.png");
-        }
+        this.image = new ImageIcon("./images/Chess_blt60.png");
+
+    }
+
+
+    public void move(String newPosition) {
+        //TO DO...
+    }
+    
+
+    @Override
+    public void setTeamColor(String teamColor) {
+        this.teamColor = teamColor;
+        this.image = new ImageIcon("./images/Chess_bdt60.png");
 
     }
 
@@ -102,9 +111,7 @@ public class Bishop extends Piece {
     }
 
 
-    public void move(String newPosition) {
-        
-    }
+
 
     private int greaterBetween(int num1, int num2) {
         if (num1 > num2) {
@@ -122,14 +129,5 @@ public class Bishop extends Piece {
         }
     }
 
-
-    
-
-    public static void main(String[] args) {
-        Board b = new Board();
-        Bishop bi = new Bishop(2, 6, b);
-        List<Cell> cells = bi.possibleCellsToMoveOn();
-       for (Cell cell : cells) {System.out.println(cell.fullNameOfCell());}
-    }
 
 }

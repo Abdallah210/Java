@@ -26,7 +26,7 @@ public class Player {
     private String name;
 
     private boolean PositionChooser;
-    private Point[] piecesPosition = new Point[16];
+    private Point[] positions = new Point[16];
 
     private Piece[] pieces = new Piece[16];
     private List<Piece> deadPieces;
@@ -50,7 +50,7 @@ public class Player {
             if (this.PositionChooser==true) {
                 for (int y = 0; y < 2; y++) {
                     for (int x = 0; x < 8; x++) {
-                        piecesPosition[i] = new Point(x,y);
+                        positions[i] = new Point(y,x);
                         i++;
                     }
                 }
@@ -60,7 +60,7 @@ public class Player {
             if (this.PositionChooser==false) {
                 for (int y = 7; y > 5; y--) {
                     for (int x = 0; x < 8; x++) {
-                        piecesPosition[i] = new Point(x,y);
+                        positions[i] = new Point(y,x);
                         i++;
                     }
                 }
@@ -71,44 +71,51 @@ public class Player {
 
         for (int index = 0; index < 9; index++) {
             //Pawns :
-            if (index < 8) {
-                Pawn pawn = new Pawn((int)piecesPosition[8+index].getX(), (int)piecesPosition[8+index].getY(), this.board);
-                pieces[index] = pawn;
-            } else {
+                if(index<8) {
 
-                Rook rook1 = new Rook((int)piecesPosition[0].getX(), (int)piecesPosition[0].getY(), this.board);
+                Rook rook1 = new Rook((int)positions[8].getX(), (int)positions[8].getY(), this.board);
                 pieces[index] = rook1;
                 index++;
 
-                Knight knight1 = new Knight((int)piecesPosition[1].getX(), (int)piecesPosition[1].getY(), this.board);
+                Knight knight1 = new Knight((int)positions[9].getX(), (int)positions[9].getY(), this.board);
                 pieces[index] = knight1;
                 index++;
 
-                Bishop bishop1 = new Bishop((int)piecesPosition[2].getX(), (int)piecesPosition[2].getY(), this.board);
+                Bishop bishop1 = new Bishop((int)positions[10].getX(), (int)positions[10].getY(), this.board);
                 pieces[index] = bishop1;
                 index++;
 
-                Queen queen = new Queen((int)piecesPosition[3].getX(), (int)piecesPosition[3].getY(), this.board);
+                Queen queen = new Queen((int)positions[11].getX(), (int)positions[11].getY(), this.board);
                 pieces[index] = queen;
                 index++;
 
-                King king = new King((int)piecesPosition[4].getX(), (int)piecesPosition[4].getY(), this.board);
+                King king = new King((int)positions[12].getX(), (int)positions[12].getY(), this.board);
                 pieces[index] = king;
                 index++;
 
-                Rook rook2 = new Rook((int)piecesPosition[5].getX(), (int)piecesPosition[5].getY(), this.board);
+                Bishop bishop2 = new Bishop((int)positions[13].getX(), (int)positions[13].getY(), this.board);
+                pieces[index] = bishop2;
+                index++;
+
+                Knight knight2 = new Knight((int)positions[14].getX(), (int)positions[14].getY(), this.board);
+                pieces[index] = knight2;
+                index++;
+                
+                Rook rook2 = new Rook((int)positions[15].getX(), (int)positions[15].getY(), this.board);
                 pieces[index] = rook2;
                 index++;
 
-                Knight knight2 = new Knight((int)piecesPosition[6].getX(), (int)piecesPosition[6].getY(), this.board);
-                pieces[index] = knight2;
-                index++;
+                }
 
-                Bishop bishop2 = new Bishop((int)piecesPosition[7].getX(), (int)piecesPosition[7].getY(), this.board);
-                pieces[index] = bishop2;
-                index++;
+                if (index == 8) {
+                    for (int j = 0; j < 8; j++) {
+                        Pawn pawn = new Pawn((int)positions[index+j].getX(), (int)positions[index+j].getY(), this.board);
+                        pieces[index+j] = pawn;
+                    }
+                }
+
             }
-        }
+        
 
 
         if (this.color=="black") {
@@ -142,8 +149,8 @@ public class Player {
         return this.PositionChooser;
     }
 
-    public Point[] getPiecesPosition() {
-        return this.piecesPosition;
+    public Point[] getPositions() {
+        return this.positions;
     }
 
     public Piece[] getPieces() {
@@ -185,31 +192,5 @@ public class Player {
     public JLabel numOfDeath() {
         return new JLabel();
     }
-
-
-    public static void main(String[] args) {
-
-        Board board = new Board();
-        Player p1 = new Player("white", board, true);
-        Player p2 = new Player("black", board, false);
-
-        /*for (Point p : p1.getPiecesPosition()) {
-            System.out.println((int)p.getX() + "  " + (int)p.getY());
-            
-        }*/
-
-
-         System.out.println("White team :");
-        for (Piece piece : p1.getPieces()) {
-            System.out.println(piece.getName() +" "+ piece.getX()+" "+ piece.getY()+" "+ piece.getTeamColor());
-        }
-
-        System.out.println("Black team :");
-        for (Piece piece : p2.getPieces()) {
-            System.out.println(piece.getName() +" "+ piece.getX()+" "+ piece.getY()+" "+ piece.getTeamColor());
-        }
-
-    }
-
 
 }

@@ -2,8 +2,9 @@ package Game.board;
 
 import java.awt.Color;
 
-//import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import Game.pieces.Piece;
 
@@ -17,17 +18,31 @@ public class Cell {
     private int x; 
     private int y; 
     private String letter; 
-    private String color; 
+    private Color color; 
     private boolean empty; 
     private Piece piece;
+    private JLabel cellLabel;
+
 
     public Cell(int x, int y) {
 
         this.x = x;
         this.y = y;
+
         this.empty = true;
-        this.color = "white";
+
+        this.color = new Color(0xf6f6f6);
+
+        this.cellLabel = new JLabel();
+        cellLabel.setBounds(100*this.x, 100*this.y, 100, 100);
+        this.cellLabel.setBackground(this.color);
+        if (this.isFull()) {
+            this.cellLabel.setIcon(this.getPiece().getImage());
+        }
+        this.cellLabel.setOpaque(true); 
+
         this.number = this.x + 1;
+
         switch (this.y) {
             case 0:
                 this.letter = "a";
@@ -54,14 +69,12 @@ public class Cell {
                 this.letter = "h";
                 break;
         }
-
     }
-
 
 
     //Getter and setter :
 
-    public String getColor() {
+    public Color getColor() {
         return this.color;
     }
 
@@ -93,7 +106,7 @@ public class Cell {
         return !(this.empty);
     }
 
-    public void setColor(String newColor) {
+    public void setColor(Color newColor) {
         this.color = newColor;
     }
 
@@ -119,20 +132,26 @@ public class Cell {
         return this.letter + this.number;
     }
 
-    public JPanel cellDesign() {
-        JPanel square = new JPanel();
+    public JLabel getCellLabel() {
+        return cellLabel;
+    }
 
-        if (this.color == "white") {
-            Color squareColor = new Color(255, 255, 255);
-            square.setBackground(squareColor);
+    public Color getCellLabelColor() {
+        return this.cellLabel.getBackground();
+    }
 
-        } else {
-            Color squareColor = new Color(0, 0, 0);
-            square.setBackground(squareColor);
-        }
+    public Icon getCellLabelIcon() {
+        return this.cellLabel.getIcon();
+    }
 
-        square.setBounds(100*this.x, 100*this.y, 100, 100);
-        return square;
+    public void setCellLabelIcon(ImageIcon newImage) {
+        this.cellLabel.setIcon(newImage);
+        this.cellLabel.setOpaque(true); 
+    }    
+    
+    public void setCellLabelColor(Color newColor) {
+        this.cellLabel.setBackground(newColor);
+        this.cellLabel.setOpaque(true); 
     }
 
 }
