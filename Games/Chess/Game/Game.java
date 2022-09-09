@@ -20,8 +20,8 @@ public class Game extends JFrame {
 
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    private Player player1 = new Player("white", this.board, false);
-    private Player player2 = new Player("black", this.board, true);
+    private Player player1 = new Player("white", this.board, true);
+    private Player player2 = new Player("black", this.board, false);
 
 
     Game(){
@@ -38,16 +38,16 @@ public class Game extends JFrame {
 
         this.setSize(800,800);
         this.setLocation(500, 25);
-        this.setBounds(0, 0,  1700, 1000);
+        this.setBounds(0, 0,  1600, 1000);
 
         this.setResizable(false);   
-        this.setVisible(true);
+
 
         int x = (int) ((screenSize.getWidth() - this.getWidth()) / 2);
         int y = (int) ((screenSize.getHeight() - this.getHeight()) / 2);
         this.setLocation(x, y-30);
 
-        this.board.getBoardPanel().setBounds((this.getWidth()-702)/2, 75,  700, 700);
+        this.board.getBoardPanel().setBounds((this.getWidth()-752)/2, 75,  750, 750);
 
         Player[] players = {player1, player2};
 
@@ -62,8 +62,18 @@ public class Game extends JFrame {
             }
         }
 
+        // show dead piece
+        //this.player1.addToDeadPieces(this.board.getCell(0, 0).getPiece());
+
+        for (Player player : players) {
+            this.add(player.getDaethPanel());
+        }
+
+
         this.add(board.getBoardPanel());
 
+
+        this.setVisible(true);
 
     
     }

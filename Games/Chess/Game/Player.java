@@ -1,12 +1,14 @@
 package Game;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import java.awt.Point;
+import java.awt.Color;
+import java.awt.Font;
 
 import Game.board.Board;
 import Game.pieces.Bishop;
@@ -25,11 +27,15 @@ public class Player {
     private String color;
     private String name;
 
+    private int nbrOfDeath;
+
     private boolean PositionChooser;
     private Point[] positions = new Point[16];
 
     private Piece[] pieces = new Piece[16];
-    private List<Piece> deadPieces;
+    private Piece[] deadPieces = new Piece[16];
+
+    private JPanel DeathPanel = new JPanel();
     
 
 
@@ -37,12 +43,10 @@ public class Player {
         
         this.board = board;
         this.color = color;
-        this.name = "";
-
-        this.deadPieces = new ArrayList<Piece>();
+        this.name = "plaaaaayer";
 
         // true for down positions and false for up positions
-        this.PositionChooser = downPosition;
+        this.PositionChooser = !downPosition;
 
         int i = 0;
         while (i<16) {
@@ -141,7 +145,7 @@ public class Player {
         return this.name;
     }
 
-    public List<Piece> getDeadPieces() {
+    public Piece[] getDeadPieces() {
         return this.deadPieces;
     }
 
@@ -156,6 +160,10 @@ public class Player {
     public Piece[] getPieces() {
         return this.pieces;
     }
+
+    public int getNbrOfDeath() {
+        return this.nbrOfDeath;
+    }
     //--
 
 
@@ -164,33 +172,114 @@ public class Player {
         this.name = name;
     }
 
-    public void addToDeadPieces(Piece piece) {
-        this.deadPieces.add(piece);
+    public void addToDeadPieces(Piece newPiece) {
+        for (int i = 0; i < deadPieces.length; i++) {
+            if (deadPieces[i]==null) {
+                deadPieces[i] = newPiece;
+                break;
+            }
+        }
     }
 
     public void setPositionChooser() {
         this.PositionChooser = !this.PositionChooser;
     }
+
     //--
 
 
 
     public int numberOfDeadPieces() {
-        return this.deadPieces.size();
-    }
-
-    public JPanel deadPanel() {
-        return new JPanel();
-    }
-
-    
-    public JLabel deadLabel() {
-        return new JLabel();
+        int counter = 0;
+        for (Piece piece : deadPieces) {
+            if (piece!=null) {
+                counter++;
+            }
+        }
+        return counter;
     }
 
 
     public JLabel numOfDeath() {
         return new JLabel();
+    }
+
+
+    public JPanel getDaethPanel(){
+
+        
+        ImageIcon image = new ImageIcon("images/deathIcon.png");
+        JLabel deathLabel = new JLabel();
+        JLabel nameLabel = new JLabel();
+        JLabel timerPanel = new JLabel();
+        
+        //Panel :
+        if (PositionChooser==true) {
+            DeathPanel.setBounds(1225, 50, 300, 850);
+        } else {
+            DeathPanel.setBounds(75, 50, 300, 850);
+        }
+        DeathPanel.setBackground(new Color(0x96a6b3));
+        DeathPanel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 3));
+        DeathPanel.setLayout(null);
+
+        //Death pieces :
+        deathLabel.setIcon(image);
+        deathLabel.setBounds(114, 275, 65, 65);
+        deathLabel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
+
+        int[] cols = {25, 88, 151, 214};
+        int[] rows = {360, 423, 486, 549};
+        int counter = 0;
+
+        JLabel[] labelWithoutImage = new JLabel[16];
+        
+        for (int c : cols) {
+            for (int r : rows) {
+                JLabel label = new JLabel();
+                label.setBounds(c, r, 60, 60);
+                label.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
+                label.setOpaque(true);
+                labelWithoutImage[counter] = label;
+                label.setBackground(new Color(0x455565));
+                counter++;
+            }
+        }
+
+        for (int i = 0; i < 16; i++) {
+            if (deadPieces[i]!=null) {
+                ImageIcon icon = deadPieces[i].getImage();
+                labelWithoutImage[i].setIcon(icon);
+            }
+        }
+
+        //Name :
+        nameLabel.setBackground(new Color(0x96a6b3));
+        nameLabel.setOpaque(true);
+        nameLabel.setBounds(25, 630, 250, 150);
+        nameLabel.setText(this.getName());
+        nameLabel.setFont(new Font("Dubai", Font.BOLD, 25));
+        nameLabel.setVerticalAlignment(JLabel.CENTER);
+        nameLabel.setHorizontalAlignment(JLabel.CENTER);
+
+
+
+        //Timer
+        timerPanel.setBackground(Color.white);
+        timerPanel.setOpaque(true);
+        timerPanel.setBounds(75, 95, 150, 100);
+        timerPanel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
+
+
+        for (JLabel label : labelWithoutImage) {
+            DeathPanel.add(label);
+        }
+
+        DeathPanel.add(timerPanel);
+        DeathPanel.add(nameLabel);
+        DeathPanel.add(deathLabel);
+
+        return DeathPanel;
     }
 
 }
