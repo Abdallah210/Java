@@ -14,12 +14,13 @@ import Game.pieces.Piece;
  */
 public class Cell {
 
-    private int number; 
     private int x; 
     private int y; 
+    private int number; 
     private String letter; 
     private Color color; 
     private boolean empty; 
+    private boolean clicked; 
     private Piece piece;
     private JLabel cellLabel;
 
@@ -30,6 +31,8 @@ public class Cell {
         this.y = y;
 
         this.empty = true;
+        this.clicked = false;
+        this.piece = null;
 
         this.color = new Color(0xf6f6f6);
 
@@ -97,6 +100,18 @@ public class Cell {
     public Piece getPiece() {
         return this.piece;
     }
+    
+    public JLabel getCellLabel() {
+        return cellLabel;
+    }
+
+    public Color getCellLabelColor() {
+        return this.cellLabel.getBackground();
+    }
+
+    public Icon getCellLabelIcon() {
+        return this.cellLabel.getIcon();
+    }
 
     public boolean isEmpty() {
         return this.empty;
@@ -104,6 +119,10 @@ public class Cell {
 
     public boolean isFull() {
         return !(this.empty);
+    }
+
+    public boolean isClicked() {
+        return this.clicked;
     }
 
     public void setColor(Color newColor) {
@@ -120,28 +139,12 @@ public class Cell {
         this.empty = false;
     }
 
-    public void setLetter(String newLetter) {
-        this.letter = newLetter;
-    }
-
-    public void setNumber(int newNumber) {
-        this.number = newNumber;
+    public void setClicked(boolean value) {
+        this.clicked = value;
     }
 
     public String fullNameOfCell() {
         return this.letter + this.number;
-    }
-
-    public JLabel getCellLabel() {
-        return cellLabel;
-    }
-
-    public Color getCellLabelColor() {
-        return this.cellLabel.getBackground();
-    }
-
-    public Icon getCellLabelIcon() {
-        return this.cellLabel.getIcon();
     }
 
     public void setCellLabelIcon(ImageIcon newImage) {

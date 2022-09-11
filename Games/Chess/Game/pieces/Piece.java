@@ -1,12 +1,13 @@
 package Game.pieces;
 
 
-import java.util.ArrayList;
+import java.awt.Color;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import Game.Player;
 import Game.board.Board;
 import Game.board.Cell;
 
@@ -14,21 +15,28 @@ public abstract class Piece {
 
     protected int x;
     protected int y;
+    protected int turns;
     protected String name;
     protected String symbol;
     protected String teamColor;
-    protected boolean death;
+    protected Boolean kingProtector;
+    protected Boolean killed;
     protected Board board;
+    protected Player player;
+    protected Cell cell;
     protected ImageIcon image;
     protected JLabel label;
     
-    public abstract void move(String newPosition);
     public abstract void setTeamColor(String newColor);
-    public abstract List<Cell> possibleCellsToMoveOn();
+    public abstract List<Cell> destinationsCells();
 
 
     public int getX() {
         return this.x;
+    }
+
+    public int getTurns() {
+        return this.turns;
     }
 
     public int getY() {
@@ -54,32 +62,79 @@ public abstract class Piece {
     public ImageIcon getImage() {
         return this.image;
     }
+    
+    public Player getPlayer() {
+        return this.player;
+    } 
 
-    public boolean isDeath() {
-        return this.death;
+    public Cell getCell() {
+        return this.board.getCell(this.x, this.y);
+    }
+
+    public boolean isKilled() {
+        return this.killed;
+    }
+
+    public boolean isProtector() {
+        return this.kingProtector;
     }
     
-    public void killed() {
-        this.death = true;
+    public void killPiece() {
+        this.killed = true;
+        this.getPlayer().addToDeathList(this);
     }
 
     public void setX(int x) {
         this.x = x;
     }
 
+    public void setTurns() {
+        this.turns++;
+    }
+
     public void setY(int y) {
         this.y = y;
     }
 
-
-    public List<String> nameOfPossibleCellsToMoveOn() {
-        List<String> names = new ArrayList<String>(); 
-        List<Cell> cells = this.possibleCellsToMoveOn(); 
-
-        for (Cell cell : cells) {
-            names.add(cell.fullNameOfCell());
-        }
-        return names;
+    public void setProtection() {
+        this.kingProtector = !this.kingProtector;
     }
+
+
+    public void moveTo(int newX, int newY){
+        if (this.getBoard().getCell(newX, newY).isEmpty()) {
+            this.getBoard().getCell(newX, newY).addPieceInCell(this);
+            this.getBoard().getCell(this.x, this.y).deletePieceInCell();
+            this.x = newX;
+            this.y = newY;
+        } else if (this.getBoard().getCell(newX, newY).isFull()) {
+            this.getBoard().getCell(newX, newY).getPiece().killPiece();
+            this.getBoard().getCell(newX, newY).addPieceInCell(this);
+            this.getBoard().getCell(this.x, this.y).deletePieceInCell();
+            this.x = newX;
+            this.y = newY;
+        }
+
+        this.setTurns();
+        //is protector
+
+
+    }
+
+
+    public static void main(String[] args) {
+        Board board = new Board();
+        Player player = new Player(new Color(0xf6f6f6), board, true);
+        Pawn p = new Pawn(4, 4, board, player);
+
+        System.out.println("Before moveTo :");
+        System.out.println("the pawn is in :" + p.getX() + p.getY() + "cell :" + p.getCell().getX() +" "+ p.getCell().getY());
+
+        p.moveTo(0, 0);
+
+        System.out.println("After moveTo :");
+        System.out.println("the pawn is in :" + p.getX() + p.getY() + "cell :" + p.getCell().getX() +" "+ p.getCell().getY());
+    }
+
 
 }

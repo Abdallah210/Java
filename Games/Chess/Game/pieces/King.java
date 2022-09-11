@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import Game.Player;
 import Game.board.Board;
 import Game.board.Cell;
 
@@ -15,22 +16,28 @@ import Game.board.Cell;
 public class King extends Piece{
 
 
-    public King(int x, int y, Board board){
+    public King(int x, int y, Board board, Player player){
 
         this.x = x;
         this.y = y;
+        this.turns = 0;
         this.name = "King";
         this.symbol = "K";
-        this.death = false;
+        this.kingProtector = null;
+        this.killed = false;
         this.teamColor = "white";
         this.board = board;
+        this.player = player;
+        this.cell = this.board.getCell(this.x, this.y);
+        
         this.image = new ImageIcon("./images/Chess_klt60.png");
+        
+        if (this.getPlayer().getPositionChosen()) {
+            this.x++;
+        } else if(!this.getPlayer().getPositionChosen()){
+            this.x--;
+        }
 
-    }
-
-    
-    public void move(String newPosition) {
-        //TO DO...
     }
 
 
@@ -41,7 +48,7 @@ public class King extends Piece{
     }
 
 
-    public List<Cell> possibleCellsToMoveOn() {
+    public List<Cell> destinationsCells() {
 
         List<Cell> cells = new ArrayList<Cell>(); 
 

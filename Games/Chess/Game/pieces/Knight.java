@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import Game.Player;
 import Game.board.Board;
 import Game.board.Cell;
 
@@ -15,22 +16,28 @@ import Game.board.Cell;
 public class Knight extends Piece{
 
 
-    public Knight(int x, int y, Board board){
+    public Knight(int x, int y, Board board, Player player){
 
         this.x = x;
         this.y = y;
+        this.turns = 0;
         this.name = "Knight";
         this.symbol = "N";
-        this.death = false;
+        this.kingProtector = false;
+        this.killed = false;
         this.teamColor = "white";
         this.board = board;
-        this.image = new ImageIcon("./images/Chess_nlt60.png");
+        this.player = player;
+        this.cell = this.board.getCell(this.x, this.y);
         
-    }
+        this.image = new ImageIcon("./images/Chess_nlt60.png");
 
-
-    public void move(String newPosition) {
-        //TO DO...
+        if (this.getPlayer().getPositionChosen()) {
+            this.x++;
+        } else if(!this.getPlayer().getPositionChosen()){
+            this.x--;
+        }
+        
     }
     
 
@@ -41,9 +48,11 @@ public class Knight extends Piece{
     }
 
 
-    public List<Cell> possibleCellsToMoveOn() {
+    public List<Cell> destinationsCells() {
 
         List<Cell> cells = new ArrayList<Cell>(); 
+        
+
 
         // move direction 1 (foward 1) :
         if (this.getY() < 6 && this.getX() > 0) {
@@ -137,7 +146,7 @@ public class Knight extends Piece{
 
         // move direction 8 (left 2) :
         if (this.getY() < 7 && this.getX() > 1) {
-            
+
             if (this.board.getCell(this.getX()-2, this.getY()+1).isEmpty())  {
                 cells.add(this.board.getCell(this.getX()-2, this.getY()+1));
             }    
@@ -147,6 +156,9 @@ public class Knight extends Piece{
             }
         }
 
+        if (this.isProtector()) {
+            cells.removeAll(cells);
+        }
 
         return cells;
     }

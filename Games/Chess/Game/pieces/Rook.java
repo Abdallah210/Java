@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import Game.Player;
 import Game.board.Board;
 import Game.board.Cell;
 
@@ -14,17 +15,26 @@ import Game.board.Cell;
  */
 public class Rook extends Piece {
 
-    public Rook(int x, int y, Board board){
+    public Rook(int x, int y, Board board, Player player){
         this.x = x;
         this.y = y;
+        this.turns = 0;
         this.name = "Rook";
         this.symbol = "R";
-        this.death = false;
+        this.kingProtector = false;
+        this.killed = false;
         this.teamColor = "white";
         this.board = board;
+        this.player = player;
+        this.cell = this.board.getCell(this.x, this.y);
 
-
-            this.image = new ImageIcon("./images/Chess_rlt60.png");
+        this.image = new ImageIcon("./images/Chess_rlt60.png");
+        
+        if (this.getPlayer().getPositionChosen()) {
+            this.x++;
+        } else if(!this.getPlayer().getPositionChosen()){
+            this.x--;
+        }
 
 
     }
@@ -36,14 +46,9 @@ public class Rook extends Piece {
         this.image = new ImageIcon("./images/Chess_rdt60.png");
 
     }
-    
-
-    public void move(String newPosition) {
-        //TO DO...
-    }
 
 
-    public List<Cell> possibleCellsToMoveOn() {
+    public List<Cell> destinationsCells() {
 
         List<Cell> cells = new ArrayList<Cell>(); 
         
@@ -51,6 +56,11 @@ public class Rook extends Piece {
         if (this.getY() != 7) {
 
             for (int i = 1; this.getY()+i <= 7; i++) {
+
+                if (this.board.getCell(this.getX(), this.getY()+i).isFull() && this.getTeamColor() == this.board.getCell(this.getX(), this.getY()+i).getPiece().getTeamColor()) {
+                    break;
+                }
+
                 if (this.board.getCell(this.getX(), this.getY()+i).isEmpty()) {
                     cells.add(this.board.getCell(this.getX(), this.getY()+i));
                 }
@@ -66,6 +76,11 @@ public class Rook extends Piece {
         if (this.getY() != 0) {
 
             for (int i = 1; this.getY()-i >= 0; i++) {
+
+                if (this.board.getCell(this.getX(), this.getY()-i).isFull() && this.getTeamColor() == this.board.getCell(this.getX(), this.getY()-i).getPiece().getTeamColor()) {
+                    break;
+                }
+
                 if (this.board.getCell(this.getX(), this.getY()-i).isEmpty()) {
                     cells.add(this.board.getCell(this.getX(), this.getY()-i));
                 }
@@ -81,6 +96,11 @@ public class Rook extends Piece {
         if (this.getX() != 7) {
 
             for (int i = 1; this.getX()+i <= 7; i++) {
+
+                if (this.board.getCell(this.getX()+i, this.getY()).isFull() && this.getTeamColor() == this.board.getCell(this.getX()+i, this.getY()).getPiece().getTeamColor()) {
+                    break;
+                }
+
                 if (this.board.getCell(this.getX()+i, this.getY()).isEmpty()) {
                     cells.add(this.board.getCell(this.getX()+i, this.getY()));
                 }
@@ -96,6 +116,11 @@ public class Rook extends Piece {
         if (this.getX() != 0) {
 
             for (int i = 1; this.getX()-i >= 0; i++) {
+
+                if (this.board.getCell(this.getX()-i, this.getY()).isFull() && this.getTeamColor() == this.board.getCell(this.getX()-i, this.getY()).getPiece().getTeamColor()) {
+                    break;
+                }
+
                 if (this.board.getCell(this.getX()-i, this.getY()).isEmpty()) {
                     cells.add(this.board.getCell(this.getX()-i, this.getY()));
                 }
@@ -107,9 +132,12 @@ public class Rook extends Piece {
                 }
             }  
 
+        if (this.isProtector()) {
+            cells.removeAll(cells);
+        }
+
         return cells;
     }
-
 
 
 }
