@@ -36,7 +36,9 @@ public class Player {
     private Piece[] deadPieces = new Piece[16];
     private JLabel[] labelWithoutImage = new JLabel[16];
 
+
     private JPanel deathPanel = new JPanel();
+    private JLabel deathNumberLabel = new JLabel("0");
     
 
 
@@ -189,6 +191,7 @@ public class Player {
                 deadPieces[i] = newPiece;
                 ImageIcon icon = deadPieces[i].getImage();
                 this.labelWithoutImage[i].setIcon(icon);
+                this.deathNumberLabel.setText(this.getNbrOfDeaths()+"");
                 break;
             }
         }
@@ -240,8 +243,15 @@ public class Player {
 
         //Death pieces :
         deathLabel.setIcon(image);
-        deathLabel.setBounds(114, 275, 65, 65);
+        deathLabel.setBounds(82, 275, 65, 65);
         deathLabel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
+
+        this.deathNumberLabel.setOpaque(true);
+        this.deathNumberLabel.setVerticalAlignment(JLabel.CENTER);
+        this.deathNumberLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.deathNumberLabel.setFont(new Font("Dubai", Font.BOLD, 25));
+        this.deathNumberLabel.setBounds(147, 275, 65, 65);
+        this.deathNumberLabel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
 
 
 
@@ -266,6 +276,7 @@ public class Player {
         for (JLabel label : this.DeathLabels()) { deathPanel.add(label); }
         deathPanel.add(timerPanel);
         deathPanel.add(nameLabel);
+        deathPanel.add(deathNumberLabel);
         deathPanel.add(deathLabel);
 
         return deathPanel;
