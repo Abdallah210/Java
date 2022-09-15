@@ -34,6 +34,7 @@ public class Player {
 
     private Piece[] pieces = new Piece[16];
     private Piece[] deadPieces = new Piece[16];
+    private JLabel[] labelWithoutImage = new JLabel[16];
 
     private JPanel deathPanel = new JPanel();
     
@@ -186,11 +187,36 @@ public class Player {
         for (int i = 0; i < deadPieces.length; i++) {
             if (deadPieces[i]==null) {
                 deadPieces[i] = newPiece;
+                ImageIcon icon = deadPieces[i].getImage();
+                this.labelWithoutImage[i].setIcon(icon);
                 break;
             }
         }
     }
+
+
     //--
+
+    public JLabel[] DeathLabels() {
+        int[] cols = {25, 88, 151, 214};
+        int[] rows = {360, 423, 486, 549};
+        int counter = 0;
+
+        
+        for (int c : cols) {
+            for (int r : rows) {
+                JLabel label = new JLabel();
+                label.setBounds(c, r, 60, 60);
+                label.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
+                label.setOpaque(true);
+                this.labelWithoutImage[counter] = label;
+                label.setBackground(new Color(0x455565));
+                counter++;
+            }
+        }
+
+        return this.labelWithoutImage;
+    }
 
 
 
@@ -217,30 +243,7 @@ public class Player {
         deathLabel.setBounds(114, 275, 65, 65);
         deathLabel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
 
-        int[] cols = {25, 88, 151, 214};
-        int[] rows = {360, 423, 486, 549};
-        int counter = 0;
 
-        JLabel[] labelWithoutImage = new JLabel[16];
-        
-        for (int c : cols) {
-            for (int r : rows) {
-                JLabel label = new JLabel();
-                label.setBounds(c, r, 60, 60);
-                label.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
-                label.setOpaque(true);
-                labelWithoutImage[counter] = label;
-                label.setBackground(new Color(0x455565));
-                counter++;
-            }
-        }
-
-        for (int i = 0; i < 16; i++) {
-            if (deadPieces[i]!=null) {
-                ImageIcon icon = deadPieces[i].getImage();
-                labelWithoutImage[i].setIcon(icon);
-            }
-        }
 
         //Name :
         nameLabel.setBackground(new Color(0x96a6b3));
@@ -260,17 +263,13 @@ public class Player {
         timerPanel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
 
 
-        for (JLabel label : labelWithoutImage) {
-            deathPanel.add(label);
-        }
-
+        for (JLabel label : this.DeathLabels()) { deathPanel.add(label); }
         deathPanel.add(timerPanel);
         deathPanel.add(nameLabel);
         deathPanel.add(deathLabel);
 
         return deathPanel;
     }
-
 
 
 }

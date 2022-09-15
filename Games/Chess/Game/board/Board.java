@@ -3,6 +3,7 @@ package Game.board;
 
 import javax.swing.JPanel;
 
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
@@ -108,7 +109,7 @@ public class Board implements MouseListener {
     public void mousePressed(MouseEvent e) {
         for (Cell cell : cellList) {
 
-            if (e.getSource()==cell.getCellLabel() && cell.isFull()) {
+            if (e.getSource()==cell.getCellLabel() && cell.isFull() && (cell.getCellLabelColor().getRGB() != new Color(0xe59494).getRGB() && cell.getCellLabelColor().getRGB() != new Color(0x7b333d).getRGB())) {
                 for (Cell cell2 : cellList) {
                     if (cell2.isClicked()) {
                         cell2.setClicked(false);
@@ -116,7 +117,7 @@ public class Board implements MouseListener {
                     }
                 }
                 cell.setClicked(true);
-                if (cell.getCellLabelColor().getRGB() == new Color(0x455565).getRGB()) {
+                if (cell.getCellLabelColor().getRGB() == new Color(0x455565).getRGB() && cell.getCellLabelColor().getRGB() == new Color(0x455565).getRGB()) {
                     cell.setCellLabelColor(new Color(0x296364));
                 } else {
                     cell.setCellLabelColor(new Color(0x94c4bb));
@@ -138,13 +139,10 @@ public class Board implements MouseListener {
                                     cellToMove.setCellLabelColor(new Color(0xe59494));    //light red
                                 } else {
                                     cellToMove.setCellLabelColor(new Color(0x94c4bb));    //light green
-
                                 }
                             }
                         }
                     }
-
-
                 }
             }
         }
@@ -164,9 +162,9 @@ public class Board implements MouseListener {
                     this.resetCellsColor();
                 }
 
-                /*if (e.getSource()==newCell.getCellLabel() && (newCell.getCellLabelColor().getRGB()==new Color(0xe59494).getRGB() || newCell.getCellLabelColor().getRGB()==new Color(0x7b333d).getRGB())) {
+                if (e.getSource()==newCell.getCellLabel() && newCell.isFull() && (newCell.getCellLabelColor().getRGB()==new Color(0xe59494).getRGB() || newCell.getCellLabelColor().getRGB()==new Color(0x7b333d).getRGB())) {
                     
-                    this.getCell(newCell.getX(), newCell.getY()).getPiece().getPlayer().addToDeathList(this.getCell(newCell.getX(), newCell.getY()).getPiece());
+                    this.getCell((int)newCell.getX(), (int)newCell.getY()).getPiece().getPlayer().addToDeathList(this.getCell(newCell.getX(), newCell.getY()).getPiece());    
                     this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().moveTo(newCell.getX(), newCell.getY());
                     this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).setCellLabelIcon(null);
                     this.getCell(newCell.getX(), newCell.getY()).getCellLabel().setHorizontalAlignment(JLabel.CENTER);
@@ -174,7 +172,7 @@ public class Board implements MouseListener {
                     this.getCell(newCell.getX(), newCell.getY()).setCellLabelIcon(this.getCell((int)newCell.getX(), (int)newCell.getY()).getPiece().getImage());
 
                     this.resetCellsColor();
-                }*/
+                }
             }
 
 

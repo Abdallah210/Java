@@ -81,7 +81,6 @@ public abstract class Piece {
     
     public void killPiece() {
         this.killed = true;
-        this.getPlayer().addToDeathList(this);
     }
 
     public void setX(int x) {

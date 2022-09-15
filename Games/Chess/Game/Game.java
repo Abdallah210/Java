@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Game.board.Board;
+import Game.pieces.Piece;
 
 
 public class Game extends JFrame {
@@ -106,11 +107,23 @@ public class Game extends JFrame {
                 this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).getCellLabel().setHorizontalAlignment(JLabel.CENTER);
                 this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).getCellLabel().setVerticalAlignment(JLabel.CENTER);
             }
+
+
         }
 
 
-        // show dead piece
-        //this.player1.addToDeadPieces(this.board.getCell(0, 0).getPiece());
+        for (Piece dead : player1.getDeadPieces()) {
+            if (dead!=null) {
+                this.player1.addToDeathList(dead);
+            }
+        }
+
+        for (Piece dead : player2.getDeadPieces()) {
+            if (dead!=null) {
+                this.player1.addToDeathList(dead);
+            }
+        }
+
 
 
         for (Player player : players) {
