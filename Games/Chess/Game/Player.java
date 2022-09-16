@@ -30,8 +30,9 @@ public class Player {
     private int nbrOfDeath;
 
     private boolean positionChosen;
-    private Point[] positions = new Point[16];
+    private boolean myTurn;
 
+    private Point[] positions = new Point[16];
     private Piece[] pieces = new Piece[16];
     private Piece[] deadPieces = new Piece[16];
     private JLabel[] labelWithoutImage = new JLabel[16];
@@ -39,6 +40,7 @@ public class Player {
 
     private JPanel deathPanel = new JPanel();
     private JLabel deathNumberLabel = new JLabel("0");
+    private JLabel turnLabel = new JLabel("fffff");
     
 
 
@@ -50,6 +52,7 @@ public class Player {
 
         // true for down positions and false for up positions
         this.positionChosen = downPosition;
+        this.myTurn = downPosition;
 
         int i = 0;
         while (i<16) {
@@ -133,6 +136,14 @@ public class Player {
             }
         }
 
+        if (myTurn) {
+            this.turnLabel.setText("It's your turn");
+            this.turnLabel.setForeground(new Color(0x00822b));
+        } else {
+            this.turnLabel.setText("Wait your turn");
+            this.turnLabel.setForeground(new Color(0xb80000));
+        }
+
     }
 
 
@@ -177,12 +188,21 @@ public class Player {
         return this.positions;
     }
 
+    public boolean isMyTurn() {
+        return this.myTurn;
+    }
+
     //--
 
 
     //Setters :
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setTurn(boolean turn) {
+        this.myTurn = turn;
     }
 
     public void addToDeathList(Piece newPiece) {
@@ -197,7 +217,6 @@ public class Player {
         }
     }
 
-
     //--
 
     public JLabel[] DeathLabels() {
@@ -206,8 +225,8 @@ public class Player {
         int counter = 0;
 
         
-        for (int c : cols) {
-            for (int r : rows) {
+        for (int r : rows) {
+            for (int c : cols) {
                 JLabel label = new JLabel();
                 label.setBounds(c, r, 60, 60);
                 label.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
@@ -222,10 +241,18 @@ public class Player {
     }
 
 
+    public JLabel turnLabel() {
+        this.turnLabel.setFont(new Font("Dubai", Font.BOLD, 25));
+        this.turnLabel.setBounds(0, 0, 300, 80);
+        this.turnLabel.setVerticalAlignment(JLabel.CENTER);
+        this.turnLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        return this.turnLabel;
+    }
+
 
     public JPanel getDeathPanel(){
 
-        
         ImageIcon image = new ImageIcon("images/deathIcon.png");
         JLabel deathLabel = new JLabel();
         JLabel nameLabel = new JLabel();
@@ -237,7 +264,7 @@ public class Player {
         } else {
             deathPanel.setBounds(50, 50, 300, 850);
         }
-        deathPanel.setBackground(new Color(0x96a6b3));
+        
         deathPanel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 3));
         deathPanel.setLayout(null);
 
@@ -256,7 +283,6 @@ public class Player {
 
 
         //Name :
-        nameLabel.setBackground(new Color(0x96a6b3));
         nameLabel.setOpaque(true);
         nameLabel.setBounds(25, 630, 250, 150);
         nameLabel.setText(this.getName());
@@ -267,13 +293,22 @@ public class Player {
 
 
         //Timer
-        timerPanel.setBackground(Color.white);
         timerPanel.setOpaque(true);
         timerPanel.setBounds(75, 95, 150, 100);
-        timerPanel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
+        timerPanel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));       
+        
+
+
+        //Colors
+        deathPanel.setBackground(new Color(0x96a6b3));
+        nameLabel.setBackground(new Color(0x96a6b3));
+        timerPanel.setBackground(new Color(0xf6f6f6));
+
+
 
 
         for (JLabel label : this.DeathLabels()) { deathPanel.add(label); }
+        deathPanel.add(this.turnLabel());
         deathPanel.add(timerPanel);
         deathPanel.add(nameLabel);
         deathPanel.add(deathNumberLabel);
@@ -281,6 +316,5 @@ public class Player {
 
         return deathPanel;
     }
-
 
 }

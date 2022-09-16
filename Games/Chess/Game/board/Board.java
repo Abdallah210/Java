@@ -109,7 +109,7 @@ public class Board implements MouseListener {
     public void mousePressed(MouseEvent e) {
         for (Cell cell : cellList) {
 
-            if (e.getSource()==cell.getCellLabel() && cell.isFull() && (cell.getCellLabelColor().getRGB() != new Color(0xe59494).getRGB() && cell.getCellLabelColor().getRGB() != new Color(0x7b333d).getRGB())) {
+            if (e.getSource()==cell.getCellLabel() && cell.isFull() && (cell.getCellLabelColor().getRGB() != new Color(0xe59494).getRGB() && cell.getCellLabelColor().getRGB() != new Color(0x7b333d).getRGB()) && cell.getPiece().getPlayer().isMyTurn()) {
                 for (Cell cell2 : cellList) {
                     if (cell2.isClicked()) {
                         cell2.setClicked(false);
@@ -148,11 +148,36 @@ public class Board implements MouseListener {
         }
 
         for (Cell currentCell : cellList) {
+
             if (currentCell.isFull() && (currentCell.getCellLabelColor().getRGB() == new Color(0x296364).getRGB() || currentCell.getCellLabelColor().getRGB() == new Color(0x94c4bb).getRGB())) {
                 Point currentCoords = new Point(currentCell.getX(), currentCell.getY());
-            for (Cell newCell : cellList) {
+                for (Cell newCell : cellList) {
+
+                
                 if (e.getSource()==newCell.getCellLabel() && newCell.isEmpty() && (newCell.getCellLabelColor().getRGB()==new Color(0x296364).getRGB() || newCell.getCellLabelColor().getRGB()==new Color(0x94c4bb).getRGB())) {
                     
+                    for (Cell c : cellList) {
+                        if (c.isFull() && this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getTeamColor()!= this.getCell(c.getX(), c.getY()).getPiece().getTeamColor()) {
+                            
+                            this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().setTurn(this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isMyTurn());;
+                            this.getCell(c.getX(), c.getY()).getPiece().getPlayer().setTurn(!this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().isMyTurn());;
+                            
+                            if (this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isMyTurn()) {
+                                this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setText("It's your turn");
+                                this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0x00822b));
+                                this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().turnLabel().setText("Wait your turn");
+                                this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0xb80000));
+                            } else {
+                                this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setText("Wait your turn");
+                                this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0xb80000));
+                                this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().turnLabel().setText("It's your turn");
+                                this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0x00822b));
+                            }
+
+                            break;
+                        }
+                    }
+
                     this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().moveTo(newCell.getX(), newCell.getY());
                     this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).setCellLabelIcon(null);
                     this.getCell(newCell.getX(), newCell.getY()).getCellLabel().setHorizontalAlignment(JLabel.CENTER);
@@ -164,6 +189,30 @@ public class Board implements MouseListener {
 
                 if (e.getSource()==newCell.getCellLabel() && newCell.isFull() && (newCell.getCellLabelColor().getRGB()==new Color(0xe59494).getRGB() || newCell.getCellLabelColor().getRGB()==new Color(0x7b333d).getRGB())) {
                     
+                    for (Cell c : cellList) {
+                        if (c.isFull() && this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getTeamColor()!= this.getCell(c.getX(), c.getY()).getPiece().getTeamColor()) {
+                            
+                            this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().setTurn(this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isMyTurn());
+                            this.getCell(c.getX(), c.getY()).getPiece().getPlayer().setTurn(!this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().isMyTurn());
+                            
+                            if (this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isMyTurn()) {
+                                this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setText("It's your turn");
+                                this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0x00822b));
+                                this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().turnLabel().setText("Wait your turn");
+                                this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0xb80000));
+                            } else {
+                                this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setText("Wait your turn");
+                                this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0xb80000));
+                                this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().turnLabel().setText("It's your turn");
+                                this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0x00822b));
+                            }
+
+                            break;
+                        }
+                    }
+
+
+
                     this.getCell((int)newCell.getX(), (int)newCell.getY()).getPiece().getPlayer().addToDeathList(this.getCell(newCell.getX(), newCell.getY()).getPiece());    
                     this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().moveTo(newCell.getX(), newCell.getY());
                     this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).setCellLabelIcon(null);

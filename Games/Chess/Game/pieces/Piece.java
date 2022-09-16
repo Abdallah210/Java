@@ -1,7 +1,6 @@
 package Game.pieces;
 
 
-import java.awt.Color;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -117,23 +116,7 @@ public abstract class Piece {
         this.setTurns();
         //is protector
 
-
     }
-
-
-    public static void main(String[] args) {
-        Board board = new Board();
-        Player player = new Player(new Color(0xf6f6f6), board, true);
-        Pawn p = new Pawn(4, 4, board, player);
-
-        System.out.println("Before moveTo :");
-        System.out.println("the pawn is in :" + p.getX() + p.getY() + "cell :" + p.getCell().getX() +" "+ p.getCell().getY());
-
-        p.moveTo(0, 0);
-
-        System.out.println("After moveTo :");
-        System.out.println("the pawn is in :" + p.getX() + p.getY() + "cell :" + p.getCell().getX() +" "+ p.getCell().getY());
-    }
-
+    
 
 }
