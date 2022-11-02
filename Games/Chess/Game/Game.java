@@ -125,7 +125,6 @@ public class Game extends JFrame {
         }
 
 
-
         for (Player player : players) {
             this.add(player.getDeathPanel());
         }
@@ -139,8 +138,6 @@ public class Game extends JFrame {
 
     
     }
-
-
 
 
 }

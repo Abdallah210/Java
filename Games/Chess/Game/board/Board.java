@@ -3,7 +3,6 @@ package Game.board;
 
 import javax.swing.JPanel;
 
-
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
@@ -24,7 +23,9 @@ public class Board implements MouseListener {
 
     private Cell[][] cells =  new Cell[8][8];
     private List<Cell> cellList =  new ArrayList<Cell>();
+
     private JPanel boardPanel;
+
 
     public Board() {
 
@@ -95,9 +96,12 @@ public class Board implements MouseListener {
 
 
 
+
+
+
+
+
     // Mouse listener :
-
-
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -154,14 +158,17 @@ public class Board implements MouseListener {
                 for (Cell newCell : cellList) {
 
                 
+                // Empty Cell
                 if (e.getSource()==newCell.getCellLabel() && newCell.isEmpty() && (newCell.getCellLabelColor().getRGB()==new Color(0x296364).getRGB() || newCell.getCellLabelColor().getRGB()==new Color(0x94c4bb).getRGB())) {
                     
                     for (Cell c : cellList) {
                         if (c.isFull() && this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getTeamColor()!= this.getCell(c.getX(), c.getY()).getPiece().getTeamColor()) {
                             
-                            this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().setTurn(this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isMyTurn());;
-                            this.getCell(c.getX(), c.getY()).getPiece().getPlayer().setTurn(!this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().isMyTurn());;
+                            // set myTurn attribute
+                            this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().setTurn(this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isMyTurn());
+                            this.getCell(c.getX(), c.getY()).getPiece().getPlayer().setTurn(!this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().getPlayer().isMyTurn());
                             
+                            //print the sentences :
                             if (this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isMyTurn()) {
                                 this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setText("It's your turn");
                                 this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0x00822b));
@@ -178,15 +185,25 @@ public class Board implements MouseListener {
                         }
                     }
 
+                    // move piece
                     this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).getPiece().moveTo(newCell.getX(), newCell.getY());
                     this.getCell((int)currentCoords.getX(), (int)currentCoords.getY()).setCellLabelIcon(null);
                     this.getCell(newCell.getX(), newCell.getY()).getCellLabel().setHorizontalAlignment(JLabel.CENTER);
                     this.getCell(newCell.getX(), newCell.getY()).getCellLabel().setVerticalAlignment(JLabel.CENTER);
                     this.getCell(newCell.getX(), newCell.getY()).setCellLabelIcon(this.getCell((int)newCell.getX(), (int)newCell.getY()).getPiece().getImage());
 
+                    if (this.getCell(newCell.getX(), newCell.getY()).getPiece().getName()=="Pawn" && this.getCell(newCell.getX(), newCell.getY()).getPiece().getPlayer().getPositionChosen() && newCell.getX()==0) {
+                        
+                    } else if (this.getCell(newCell.getX(), newCell.getY()).getPiece().getName()=="Pawn" && !this.getCell(newCell.getX(), newCell.getY()).getPiece().getPlayer().getPositionChosen() && newCell.getX()==7) {
+                        
+                    }
+
+
                     this.resetCellsColor();
                 }
 
+
+                // Cell with enemy 
                 if (e.getSource()==newCell.getCellLabel() && newCell.isFull() && (newCell.getCellLabelColor().getRGB()==new Color(0xe59494).getRGB() || newCell.getCellLabelColor().getRGB()==new Color(0x7b333d).getRGB())) {
                     
                     for (Cell c : cellList) {
@@ -249,5 +266,15 @@ public class Board implements MouseListener {
         
     }
 
+
+    /*
+     * 
+     * 
+     *                                 if (this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isPromoDisplayed()) {
+                                    this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setText("Choose a Piece");
+                                    this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0xc23000));
+                                }
+     * 
+     */
 
 }

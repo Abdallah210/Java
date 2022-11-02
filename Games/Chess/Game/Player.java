@@ -1,5 +1,7 @@
 package Game;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -9,8 +11,11 @@ import javax.swing.JPanel;
 import java.awt.Point;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.GridLayout;
 
 import Game.board.Board;
+import Game.board.CountDownTimer;
 import Game.pieces.Bishop;
 import Game.pieces.King;
 import Game.pieces.Knight;
@@ -19,7 +24,7 @@ import Game.pieces.Piece;
 import Game.pieces.Queen;
 import Game.pieces.Rook;
 
-public class Player {
+public class Player implements MouseListener {
 
 
     private Board board;
@@ -31,6 +36,7 @@ public class Player {
 
     private boolean positionChosen;
     private boolean myTurn;
+    private boolean promoDisplayed;
 
     private Point[] positions = new Point[16];
     private Piece[] pieces = new Piece[16];
@@ -40,8 +46,16 @@ public class Player {
 
     private JPanel deathPanel = new JPanel();
     private JLabel deathNumberLabel = new JLabel("0");
-    private JLabel turnLabel = new JLabel("fffff");
+    private JLabel turnLabel = new JLabel("");
+
+    private JPanel choosePieceLabel;
+    private ImageIcon queenImage = new ImageIcon("./images/Chess_qgt60.png");
+    private ImageIcon knightImage = new ImageIcon("./images/Chess_ngt60.png");
+    private ImageIcon bishopImage = new ImageIcon("./images/Chess_bgt60.png");
+    private ImageIcon rookImage = new ImageIcon("./images/Chess_rgt60.png");
     
+    private Font dubaiFont25 = new Font("Dubai", Font.BOLD, 25);
+    private Font dubaiFont35 = new Font("Dubai", Font.BOLD, 35);
 
 
     public Player(Color color, Board board, boolean downPosition){
@@ -49,10 +63,13 @@ public class Player {
         this.board = board;
         this.color = color;
         this.name = "plaaaaayer";
+        this.choosePieceLabel = new JPanel();
 
-        // true for down positions and false for up positions
+        //this.deathPanel.add(this.displayPanelPromotion());
+
         this.positionChosen = downPosition;
         this.myTurn = downPosition;
+        this.promoDisplayed = false;
 
         int i = 0;
         while (i<16) {
@@ -192,6 +209,10 @@ public class Player {
         return this.myTurn;
     }
 
+    public boolean isPromoDisplayed() {
+        return this.promoDisplayed;
+    }
+
     //--
 
 
@@ -203,6 +224,10 @@ public class Player {
 
     public void setTurn(boolean turn) {
         this.myTurn = turn;
+    }
+    
+    public void setPromoDiplayed(boolean value) {
+        this.promoDisplayed = value;
     }
 
     public void addToDeathList(Piece newPiece) {
@@ -219,11 +244,42 @@ public class Player {
 
     //--
 
+    public JPanel displayPanelPromotion() {
+
+        
+        this.choosePieceLabel.setOpaque(true);
+        this.choosePieceLabel.setLayout(new GridLayout(2,2));
+        this.choosePieceLabel.setBackground(new Color(0xf6f6f6));
+        this.choosePieceLabel.setBounds(60, 75, 180, 180);
+
+        Rectangle[] positions = {new Rectangle(95,95,90,90),new Rectangle(215,95,90,90),new Rectangle(95,215,90,90),new Rectangle(215,215,90,90)};
+        ImageIcon[] images = {queenImage, knightImage, rookImage, bishopImage};
+
+        
+        for (int i = 0; i < 4; i++) {
+            JLabel piece = new JLabel();
+            piece.setOpaque(true);
+            piece.setBounds(positions[i]);
+            piece.setIcon(images[i]);
+            piece.setBorder(BorderFactory.createLineBorder(new Color(0x30c230), 2));
+            piece.setBackground(new Color(0xf6f6f6));
+            piece.setVerticalAlignment(JLabel.CENTER);
+            piece.setHorizontalAlignment(JLabel.CENTER);
+            piece.addMouseListener(this);
+            this.choosePieceLabel.add(piece);
+        }
+
+
+        this.setPromoDiplayed(true);
+
+        return this.choosePieceLabel;
+    }
+
     public JLabel[] DeathLabels() {
+
         int[] cols = {25, 88, 151, 214};
         int[] rows = {360, 423, 486, 549};
         int counter = 0;
-
         
         for (int r : rows) {
             for (int c : cols) {
@@ -256,7 +312,7 @@ public class Player {
         ImageIcon image = new ImageIcon("images/deathIcon.png");
         JLabel deathLabel = new JLabel();
         JLabel nameLabel = new JLabel();
-        JLabel timerPanel = new JLabel();
+        CountDownTimer timerPanel = new CountDownTimer();
         
         //Panel :
         if (positionChosen==true) {
@@ -286,35 +342,80 @@ public class Player {
         nameLabel.setOpaque(true);
         nameLabel.setBounds(25, 630, 250, 150);
         nameLabel.setText(this.getName());
-        nameLabel.setFont(new Font("Dubai", Font.BOLD, 25));
+        nameLabel.setFont(dubaiFont25);
         nameLabel.setVerticalAlignment(JLabel.CENTER);
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
 
 
 
         //Timer
-        timerPanel.setOpaque(true);
-        timerPanel.setBounds(75, 95, 150, 100);
-        timerPanel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));       
+        timerPanel.getTimerLabel().setOpaque(true);
+        timerPanel.getTimerLabel().setBounds(75, 95, 150, 100);
+        timerPanel.getTimerLabel().setFont(this.dubaiFont35);
+        timerPanel.getTimerLabel().setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));   
+        timerPanel.getTimerLabel().setVerticalAlignment(JLabel.CENTER);
+        timerPanel.getTimerLabel().setHorizontalAlignment(JLabel.CENTER);    
+        timerPanel.countDown();
+        timerPanel.getTimer().start();
         
 
 
         //Colors
         deathPanel.setBackground(new Color(0x96a6b3));
         nameLabel.setBackground(new Color(0x96a6b3));
-        timerPanel.setBackground(new Color(0xf6f6f6));
+        timerPanel.getTimerLabel().setBackground(new Color(0xf6f6f6));
 
 
 
 
         for (JLabel label : this.DeathLabels()) { deathPanel.add(label); }
         deathPanel.add(this.turnLabel());
-        deathPanel.add(timerPanel);
+        deathPanel.add(timerPanel.getTimerLabel());
         deathPanel.add(nameLabel);
         deathPanel.add(deathNumberLabel);
         deathPanel.add(deathLabel);
 
         return deathPanel;
+    }
+
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

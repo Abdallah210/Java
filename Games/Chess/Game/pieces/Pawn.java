@@ -10,10 +10,15 @@ import Game.Player;
 import Game.board.Board;
 import Game.board.Cell;
 
+
+
 /**
  * Pawn's class 
  */
 public class Pawn extends Piece{
+
+
+    
 
 
     public Pawn(int x, int y, Board board, Player player){
@@ -37,7 +42,15 @@ public class Pawn extends Piece{
 
     //Pawn method :
     public void promotion() {  
-        // TO DO...
+        if (this.player.getPositionChosen()) {
+            if (this.getX()==0) {
+                this.board.getCell(0, 0); // display panel promotion
+            }
+        } else {
+            if (this.getX()==7) {
+                this.board.getCell(0, 0); // display panel promotion
+            }
+        }
     }
 
 
