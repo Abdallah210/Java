@@ -7,17 +7,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import Game.Game;
 
-public class FirstInterface {
 
-    private boolean visibility = true;
+public class LandingInterface extends JLabel {
+
     private JButton button = new JButton(); 
     private ImageIcon logoEFA = new ImageIcon("./images/logoEFA.png");
     private ImageIcon logo = new ImageIcon("./images/logo.png");
     private JLabel logoLabel = new JLabel();
     private JLabel logoEFALabel = new JLabel();
+    
+    private Game game;
 
-    public FirstInterface() {
+    public LandingInterface(Game game) {
+
+        this.game = game;
+        this.setBounds(this.game.getFrameSize());
+        this.setVerticalAlignment(JLabel.CENTER);  
+        this.setHorizontalAlignment(JLabel.CENTER);
 
         // Button
         this.button.setText("PLAY"); 
@@ -43,24 +51,23 @@ public class FirstInterface {
         this.logoEFALabel.setBounds(0, 0, 300,175);
         this.logoEFALabel.setOpaque(false);
 
-    }
+        this.button.setBounds((this.getWidth()-350)/2, (this.getHeight()+200)/2, 350, 175);
+        this.logoLabel.setBounds((this.getWidth()-840)/2, (this.getHeight()-850)/2, 840, 500);
+        this.logoEFALabel.setBounds(this.getWidth()-325, -25, 350, 175);
+
+        this.add(logoLabel);
+        this.add(button);
+        this.add(logoEFALabel);
 
 
-
-    public boolean isVisible() {
-        return this.visibility;
-    }
-
-    public JButton getButton() {
-        return this.button;
-    }
-
-    public JLabel getLogo() {
-        return this.logoLabel;
-    }
-
-    public JLabel getLogoEFA() {
-        return logoEFALabel;
+        // pass to user interface :
+        button.addActionListener(     
+            e -> {
+                this.game.getLandingInterface().setVisible(false);
+                this.game.getUserInterface().setVisible(true);
+                this.game.getGameInterface().setVisible(false);
+                }
+            );   
     }
     
 }

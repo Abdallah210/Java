@@ -1,60 +1,37 @@
 package Game.interfaces;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class UserInterface implements MouseListener{
+import Game.Game;
 
-    private JLabel clickBtn2; 
-    private JLabel clickBtn3; 
+public class UserInterface extends JLabel {
 
-    public UserInterface() {
+    private Game game;
+    private JPanel mainPanel;
+
+    public UserInterface(Game game) {
         
-        this.clickBtn2 = new JLabel();
+        this.game = game;
+        this.setBounds(this.game.getFrameSize());
+        this.setVerticalAlignment(JLabel.CENTER);  
+        this.setHorizontalAlignment(JLabel.CENTER);
 
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
+        this.mainPanel.setBounds(100,100,1400,800);
+        this.setOpaque(true);
         
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+
+
+
+
+
+
+
     
 }
