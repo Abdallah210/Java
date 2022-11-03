@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import Game.interfaces.GameInterface;
 import Game.interfaces.LandingInterface;
 import Game.interfaces.UserInterface;
-import java.awt.Rectangle;
+import java.awt.Rectangle;;
 
 
 public class Game extends JFrame {
@@ -42,18 +42,13 @@ public class Game extends JFrame {
         this.add(userInterface);
         this.add(gameInterface);
 
-
         this.setVisible(true);
-        
-
-
     }
 
 
     public void gameFrame() {
 
         // Frame (game's window):
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Chess - By EFA");
         this.setIconImage(icon.getImage());
@@ -67,7 +62,6 @@ public class Game extends JFrame {
         int x = (int) ((screenSize.getWidth() - this.getWidth()) / 2);
         int y = (int) ((screenSize.getHeight() - this.getHeight()) / 2);
         this.setLocation(x, y-30);
-
     }
 
     public JLabel getUserInterface() {
