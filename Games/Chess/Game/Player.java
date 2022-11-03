@@ -47,6 +47,8 @@ public class Player implements MouseListener {
     private JPanel deathPanel = new JPanel();
     private JLabel deathNumberLabel = new JLabel("0");
     private JLabel turnLabel = new JLabel("");
+    private CountDownTimer timerPanel = new CountDownTimer();
+
 
     private JPanel choosePieceLabel;
     private ImageIcon queenImage = new ImageIcon("./images/Chess_qgt60.png");
@@ -213,6 +215,10 @@ public class Player implements MouseListener {
         return this.promoDisplayed;
     }
 
+    public CountDownTimer getTimerPanel() {
+        return this.timerPanel;
+    }
+
     //--
 
 
@@ -245,8 +251,7 @@ public class Player implements MouseListener {
     //--
 
     public JPanel displayPanelPromotion() {
-
-        
+ 
         this.choosePieceLabel.setOpaque(true);
         this.choosePieceLabel.setLayout(new GridLayout(2,2));
         this.choosePieceLabel.setBackground(new Color(0xf6f6f6));
@@ -306,13 +311,19 @@ public class Player implements MouseListener {
         return this.turnLabel;
     }
 
+    public void startStopCountdown() {
+        if (myTurn) {
+            this.timerPanel.getTimer().start();
+        } else {
+            this.timerPanel.getTimer().stop();
+        }
+    }
 
     public JPanel getDeathPanel(){
 
         ImageIcon image = new ImageIcon("images/deathIcon.png");
         JLabel deathLabel = new JLabel();
         JLabel nameLabel = new JLabel();
-        CountDownTimer timerPanel = new CountDownTimer();
         
         //Panel :
         if (positionChosen==true) {
@@ -337,7 +348,6 @@ public class Player implements MouseListener {
         this.deathNumberLabel.setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));
 
 
-
         //Name :
         nameLabel.setOpaque(true);
         nameLabel.setBounds(25, 630, 250, 150);
@@ -347,24 +357,20 @@ public class Player implements MouseListener {
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
 
 
-
         //Timer
-        timerPanel.getTimerLabel().setOpaque(true);
-        timerPanel.getTimerLabel().setBounds(75, 95, 150, 100);
-        timerPanel.getTimerLabel().setFont(this.dubaiFont35);
-        timerPanel.getTimerLabel().setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));   
-        timerPanel.getTimerLabel().setVerticalAlignment(JLabel.CENTER);
-        timerPanel.getTimerLabel().setHorizontalAlignment(JLabel.CENTER);    
-        timerPanel.countDown();
-        timerPanel.getTimer().start();
-        
+        this.timerPanel.getTimerLabel().setOpaque(true);
+        this.timerPanel.getTimerLabel().setBounds(75, 95, 150, 100);
+        this.timerPanel.getTimerLabel().setFont(this.dubaiFont35);
+        this.timerPanel.getTimerLabel().setBorder(BorderFactory.createLineBorder(new Color(0x272b2e), 1));   
+        this.timerPanel.getTimerLabel().setVerticalAlignment(JLabel.CENTER);
+        this.timerPanel.getTimerLabel().setHorizontalAlignment(JLabel.CENTER);    
+        this.timerPanel.countDown();
 
 
         //Colors
         deathPanel.setBackground(new Color(0x96a6b3));
         nameLabel.setBackground(new Color(0x96a6b3));
         timerPanel.getTimerLabel().setBackground(new Color(0xf6f6f6));
-
 
 
 

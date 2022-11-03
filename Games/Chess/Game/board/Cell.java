@@ -157,4 +157,53 @@ public class Cell {
         this.cellLabel.setOpaque(true); 
     }
 
+    public void changeToGreenColor() {
+        if (this.getCellLabelColor().getRGB() == new Color(0x455565).getRGB()) {
+            this.setCellLabelColor(new Color(0x296364));
+        } else {
+            this.setCellLabelColor(new Color(0x94c4bb));
+        }
+    }
+
+    public void changeToDarkGreen() {
+        this.setCellLabelColor(new Color(0x296364)); 
+    }
+    
+    public void changeToLightGreen() {
+        this.setCellLabelColor(new Color(0x94c4bb)); 
+    }
+    
+    public void changeToDarkRed() {
+        this.setCellLabelColor(new Color(0x7b333d)); 
+    }
+    
+    public void changeToLightRed() {
+        this.setCellLabelColor(new Color(0xe59494)); 
+    }    
+
+    public boolean isDarkGreen() {
+        return this.getCellLabelColor().getRGB()==new Color(0x296364).getRGB();
+    }
+    
+    public boolean isLightGreen() {
+        return this.getCellLabelColor().getRGB()==new Color(0x94c4bb).getRGB();
+    }
+    
+    public boolean isDarkRed() {
+        return this.getCellLabelColor().getRGB()==new Color(0x7b333d).getRGB();
+    }
+    
+    public boolean isLightRed() {
+        return this.getCellLabelColor().getRGB()==new Color(0xe59494).getRGB();
+    }    
+    
+    public boolean isDark() {
+        return this.getCellLabelColor().getRGB() == new Color(0x455565).getRGB();
+    }    
+        
+    public boolean isLight() {
+        return this.getCellLabelColor().getRGB() == new Color(0xffffff).getRGB();
+    }    
+
+    
 }

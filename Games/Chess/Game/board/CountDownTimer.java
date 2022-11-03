@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
+
+
 import javax.swing.JLabel;
 
 
@@ -75,8 +77,4 @@ public class CountDownTimer {
     public Timer getTimer() {
         return this.timer;
     }
-
-
-
-    
 }
