@@ -59,14 +59,14 @@ public class GameInterface extends JLabel{
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setVerticalAlignment(JLabel.CENTER);
             label.setFont(new Font("Dubai", Font.BOLD, 30));
-            label.setForeground(new Color(0x96a6b3));
+            label.setForeground(new Color(0x455565));
 
             label2.setBounds(0, 25+i*92, 50, 60);
             label2.setText(letters[i]);
             label2.setHorizontalAlignment(JLabel.CENTER);
             label2.setVerticalAlignment(JLabel.CENTER);
             label2.setFont(new Font("Dubai", Font.BOLD, 30));
-            label2.setForeground(new Color(0x96a6b3));
+            label2.setForeground(new Color(0x455565));
 
             horizontalPositions.add(label);
             verticalPositions.add(label2);
