@@ -60,11 +60,11 @@ public class Player implements MouseListener {
     private Font dubaiFont35 = new Font("Dubai", Font.BOLD, 35);
 
 
-    public Player(Color color, Board board, boolean downPosition){
+    public Player(Color color, Board board, boolean downPosition, String name){
         
         this.board = board;
         this.color = color;
-        this.name = "plaaaaayer";
+        this.name = name;
         this.choosePieceLabel = new JPanel();
 
         //this.deathPanel.add(this.displayPanelPromotion());
@@ -94,7 +94,6 @@ public class Player implements MouseListener {
                     }
                 }
             }
-
         }
 
 
@@ -377,13 +376,27 @@ public class Player implements MouseListener {
         for (JLabel label : this.DeathLabels()) { deathPanel.add(label); }
         deathPanel.add(this.turnLabel());
         deathPanel.add(timerPanel.getTimerLabel());
-        deathPanel.add(nameLabel);
+        //deathPanel.add(nameLabel);
         deathPanel.add(deathNumberLabel);
         deathPanel.add(deathLabel);
 
         return deathPanel;
     }
 
+    public void addLabelName(String name) {
+
+        JLabel nameLabel = new JLabel();
+
+        nameLabel.setOpaque(true);
+        nameLabel.setBounds(25, 630, 250, 150);
+        nameLabel.setText(name);
+        nameLabel.setFont(dubaiFont25);
+        nameLabel.setVerticalAlignment(JLabel.CENTER);
+        nameLabel.setHorizontalAlignment(JLabel.CENTER);
+        nameLabel.setBackground(new Color(0x96a6b3));
+
+        deathPanel.add(nameLabel);
+    }
 
 
     @Override

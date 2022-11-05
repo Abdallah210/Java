@@ -32,7 +32,7 @@ public class LandingInterface extends JLabel {
         this.button.setFocusable(false);
         this.button.setHorizontalTextPosition(JButton.CENTER);
         this.button.setVerticalTextPosition(JButton.TOP);
-        this.button.setFont(new Font("Comic Sans",Font.BOLD, 20));
+        this.button.setFont(new Font("Press start 2P",Font.BOLD, 40));
         this.button.setBackground(new Color(0x616e7c));
         this.button.setForeground(new Color(0xc7ccd1));
         this.button.setEnabled(true);

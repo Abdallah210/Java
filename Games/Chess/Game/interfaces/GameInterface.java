@@ -22,8 +22,9 @@ public class GameInterface extends JLabel{
     private JPanel horizontalPositions = new JPanel();
 
     // Players :
-    private Player player1 = new Player(new Color(0xf6f6f6), this.board, true);
-    private Player player2 = new Player(new Color(0x455565), this.board, false);
+
+    private Player player1 = new Player(new Color(0xf6f6f6), this.board, true, "a");
+    private Player player2 = new Player(new Color(0x455565), this.board, false, "b");
 
 
 
@@ -75,6 +76,7 @@ public class GameInterface extends JLabel{
             // Players :
             Player[] players = {player1, player2};
 
+
             for (Player player : players) {  
                 for (int i = 0; i < player.getPositions().length; i++) {
                     //if not killed
@@ -94,13 +96,14 @@ public class GameInterface extends JLabel{
 
             for (Piece dead : player2.getDeadPieces()) {
                 if (dead!=null) {
-                    this.player1.addToDeathList(dead);
+                    this.player2.addToDeathList(dead);
                 }
             }
 
             for (Player player : players) {
                 this.add(player.getDeathPanel());
             }
+
 
             this.add(horizontalPositions);
             this.add(verticalPositions);

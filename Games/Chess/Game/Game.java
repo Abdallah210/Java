@@ -28,7 +28,8 @@ public class Game extends JFrame {
     private JLabel userInterface = new UserInterface(this);
     private JLabel gameInterface = new GameInterface(this);
 
-
+    private String player1Name;
+    private String player2Name;
 
 
     Game(){
@@ -78,6 +79,23 @@ public class Game extends JFrame {
 
     public Rectangle getFrameSize() {
         return this.FRAMESIZE;
+    }
+
+
+    public String getPlayer1Name() {
+        return this.player1Name;
+    }
+
+    public String getPlayer2Name() {
+        return this.player2Name;
+    }
+
+    public void setPlayer1Name(String player1Name) {
+        this.player1Name = player1Name;
+    }
+
+    public void setPlayer2Name(String player2Name) {
+        this.player2Name = player2Name;
     }
 }
 
