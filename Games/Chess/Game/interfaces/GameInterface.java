@@ -5,14 +5,20 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JPanel;
 
 import Game.Game;
 import Game.Player;
 import Game.board.Board;
+import Game.board.Cell;
 import Game.pieces.Piece;
 
-public class GameInterface extends JLabel{
+public class GameInterface extends JLabel implements MouseListener {
 
     private Game game;
     
@@ -27,9 +33,13 @@ public class GameInterface extends JLabel{
     private Player player2 = new Player(new Color(0x455565), this.board, false, "b");
 
 
-
     public GameInterface(Game game) {  // TODO... add 2 players in parameters
         
+        this.addMouseListener(this);
+        this.board.getBoardPanel().addMouseListener(this);
+        this.verticalPositions.addMouseListener(this);
+        this.horizontalPositions.addMouseListener(this);
+
         this.game = game;
         
         this.setBounds(this.game.getFrameSize());
@@ -73,41 +83,91 @@ public class GameInterface extends JLabel{
             verticalPositions.add(label2);
             }
 
-            // Players :
-            Player[] players = {player1, player2};
+            this.add(horizontalPositions);
+            this.add(verticalPositions);
+            this.add(board.getBoardPanel());
+    }
 
+    public void printPlayerPanels() {
+        Player[] players = {player1, player2};
 
-            for (Player player : players) {  
-                for (int i = 0; i < player.getPositions().length; i++) {
-                    //if not killed
-                    this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).addPieceInCell(player.getPieces()[i]);
+        for (Player player : players) {  
+            for (int i = 0; i < player.getPositions().length; i++) {
+                //if not killed
+                this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).addPieceInCell(player.getPieces()[i]);
 
-                    this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).setCellLabelIcon(this.board.getCell((int)player.getPositions()[i].getX(), (int)player1.getPositions()[i].getY()).getPiece().getImage());
-                    this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).getCellLabel().setHorizontalAlignment(JLabel.CENTER);
-                    this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).getCellLabel().setVerticalAlignment(JLabel.CENTER);
-                }
+                this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).setCellLabelIcon(this.board.getCell((int)player.getPositions()[i].getX(), (int)player1.getPositions()[i].getY()).getPiece().getImage());
+                this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).getCellLabel().setHorizontalAlignment(JLabel.CENTER);
+                this.board.getCell((int)player.getPositions()[i].getX(), (int)player.getPositions()[i].getY()).getCellLabel().setVerticalAlignment(JLabel.CENTER);
             }
-
-            for (Piece dead : player1.getDeadPieces()) {
-                if (dead!=null) {
-                    this.player1.addToDeathList(dead);
-                }
+        }
+       
+        for (Piece dead : player1.getDeadPieces()) {
+            if (dead!=null) {
+                this.player1.addToDeathList(dead);
             }
+        }
+       
+        for (Piece dead : player2.getDeadPieces()) {
+            if (dead!=null) {
+                this.player2.addToDeathList(dead);
+            }
+        }
 
-            for (Piece dead : player2.getDeadPieces()) {
-                if (dead!=null) {
-                    this.player2.addToDeathList(dead);
+        for (Player player : players) {
+            this.add(player.getDeathPanel());
+        }
+    }
+
+    public Player getPlayer1() {
+        return this.player1;
+    }
+
+    public Player getPlayer2() {
+        return this.player2;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+        if (e.getSource()==this || e.getSource()==this.board.getBoardPanel() || e.getSource()==this.verticalPositions || e.getSource()==this.horizontalPositions) {
+
+            List<Player> players = new ArrayList<Player>();
+
+            for (Cell cell : this.board.getCellList()) {
+                if (cell.isFull() && !players.contains(cell.getPiece().getPlayer())) {
+                    players.add(cell.getPiece().getPlayer());
                 }
             }
 
             for (Player player : players) {
-                this.add(player.getDeathPanel());
+                player.startStopCountdown();
             }
+        }
+    }
 
-
-            this.add(horizontalPositions);
-            this.add(verticalPositions);
-            this.add(board.getBoardPanel());
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }
 

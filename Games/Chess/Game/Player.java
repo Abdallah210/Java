@@ -15,7 +15,7 @@ import java.awt.Rectangle;
 import java.awt.GridLayout;
 
 import Game.board.Board;
-import Game.board.CountDownTimer;
+import Game.board.util.CountDownTimer;
 import Game.pieces.Bishop;
 import Game.pieces.King;
 import Game.pieces.Knight;
@@ -33,6 +33,7 @@ public class Player implements MouseListener {
     private String name;
 
     private int nbrOfDeath;
+    private int time;
 
     private boolean positionChosen;
     private boolean myTurn;
@@ -47,7 +48,7 @@ public class Player implements MouseListener {
     private JPanel deathPanel = new JPanel();
     private JLabel deathNumberLabel = new JLabel("0");
     private JLabel turnLabel = new JLabel("");
-    private CountDownTimer timerPanel = new CountDownTimer();
+    private CountDownTimer timerPanel = new CountDownTimer(this.time);
 
 
     private JPanel choosePieceLabel;
@@ -65,6 +66,7 @@ public class Player implements MouseListener {
         this.board = board;
         this.color = color;
         this.name = name;
+        this.time = 0;
         this.choosePieceLabel = new JPanel();
 
         //this.deathPanel.add(this.displayPanelPromotion());
@@ -218,6 +220,10 @@ public class Player implements MouseListener {
         return this.timerPanel;
     }
 
+    public int getTime() {
+        return time;
+    }
+
     //--
 
 
@@ -245,6 +251,10 @@ public class Player implements MouseListener {
                 break;
             }
         }
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     //--
@@ -376,14 +386,14 @@ public class Player implements MouseListener {
         for (JLabel label : this.DeathLabels()) { deathPanel.add(label); }
         deathPanel.add(this.turnLabel());
         deathPanel.add(timerPanel.getTimerLabel());
-        //deathPanel.add(nameLabel);
+        deathPanel.add(printName(this.name));
         deathPanel.add(deathNumberLabel);
         deathPanel.add(deathLabel);
 
         return deathPanel;
     }
 
-    public void addLabelName(String name) {
+    public JLabel printName(String name) {
 
         JLabel nameLabel = new JLabel();
 
@@ -395,7 +405,7 @@ public class Player implements MouseListener {
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
         nameLabel.setBackground(new Color(0x96a6b3));
 
-        deathPanel.add(nameLabel);
+        return nameLabel;
     }
 
 

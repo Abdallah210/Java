@@ -24,7 +24,6 @@ import Game.board.util.MySlider;
 
 
 import Game.Game;
-import Game.Player;
 
 public class UserInterface extends JLabel implements ChangeListener, ActionListener{
 
@@ -72,6 +71,7 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
     public UserInterface(Game game) {
         
         this.game = game;
+        this.time = this.timeSlider.getValue();
         this.setBounds(this.game.getFrameSize());
         this.setVerticalAlignment(JLabel.CENTER);  
         this.setHorizontalAlignment(JLabel.CENTER);
@@ -217,8 +217,7 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
         this.plyr2Btn.addActionListener(this);
         this.plyr1BackBtn.addActionListener(this);
         this.plyr2BackBtn.addActionListener(this);
-
-
+        this.startButton.addActionListener(this);
 
         JComponent[] plyr1components = {enter1Name, plyr1Image, plyr1Title, plyr1Btn, plyr1BackBtn, plyr1Text};
         JComponent[] plyr2components = {enter2Name, plyr2Image, plyr2Title, plyr2Btn, plyr2BackBtn, plyr2Text};
@@ -238,8 +237,8 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
         this.startButton.setHorizontalTextPosition(JButton.CENTER);
         this.startButton.setVerticalTextPosition(JButton.TOP);
         this.startButton.setFont(new Font("Press start 2P",Font.BOLD, 20));
-        this.startButton.setBackground(new Color(0x616e7c));
-        this.startButton.setForeground(new Color(0xc7ccd1));
+        this.startButton.setBackground(new Color(0x96a6b3));
+        this.startButton.setForeground(new Color(0xe6e6e6));
         this.startButton.setEnabled(false);
 
         JComponent[] components = {startButton, logoLabel, timeLabel, player1Label, player2Label, mainLabel};
@@ -248,24 +247,14 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
         }
 
 
-        // pass to game interface :
-        startButton.addActionListener(     
-            e -> {
-                this.game.setPlayer1Name(this.getPlayer1());
-                this.game.setPlayer2Name(this.getPlayer2());
-                this.game.getLandingInterface().setVisible(false);
-                this.game.getUserInterface().setVisible(false);
-                this.game.getGameInterface().setVisible(true);
-                }
-            );   
     }
 
 
-    public String getPlayer1() {
+    public String getPlayerName1() {
         return this.player1;
     }
 
-    public String getPlayer2() {
+    public String getPlayerName2() {
         return this.player2;
     }
 
@@ -283,6 +272,21 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource()==this.startButton) {
+            this.game.getGameInterface().getPlayer1().setName(this.getPlayerName1());
+            this.game.getGameInterface().getPlayer2().setName(this.getPlayerName2());
+
+            this.game.getGameInterface().getPlayer1().getTimerPanel().setMinutes(this.getTime());
+            this.game.getGameInterface().getPlayer2().getTimerPanel().setMinutes(this.getTime());
+            
+            this.game.getGameInterface().printPlayerPanels();
+
+            this.game.getLandingInterface().setVisible(false);
+            this.game.getUserInterface().setVisible(false);
+            this.game.getGameInterface().setVisible(true);
+        }
+
         if (e.getSource()==this.plyr1BackBtn) {
             this.plyr1Text.setText("");
             this.plyr1Btn.setEnabled(true);
@@ -294,7 +298,7 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
             this.plyr2Text.setText("");
             this.plyr2Btn.setEnabled(true);
             this.startButton.setEnabled(false);
-            this.plyr1Text.setEditable(true);
+            this.plyr2Text.setEditable(true);
         }
 
         if (e.getSource()==this.plyr1Btn) {

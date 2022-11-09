@@ -26,7 +26,7 @@ public class Game extends JFrame {
     // Interfaces :
     private JLabel landingInterface = new LandingInterface(this);
     private JLabel userInterface = new UserInterface(this);
-    private JLabel gameInterface = new GameInterface(this);
+    private GameInterface gameInterface = new GameInterface(this);
 
     private String player1Name;
     private String player2Name;
@@ -73,7 +73,7 @@ public class Game extends JFrame {
         return this.landingInterface;
     }
 
-    public JLabel getGameInterface() {
+    public GameInterface getGameInterface() {
         return this.gameInterface;
     }
 
