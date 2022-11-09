@@ -1,4 +1,3 @@
-package Suppliments;
 
 import javax.swing.JPanel;
 

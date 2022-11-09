@@ -66,9 +66,7 @@ public class KeyListenerFrame extends JFrame implements KeyListener {
                 player.setLocation(player.getX(), player.getY()+10);
             }
                 break;
-        
         }
-        
     }
 
     @Override
@@ -86,18 +84,12 @@ public class KeyListenerFrame extends JFrame implements KeyListener {
             case 40:
                 this.player.setLocation(this.player.getX(), this.player.getY()+10);
                 break;
-        
         }
-        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         System.out.println("you realesed key character : "+ e.getKeyCode());
-        System.out.println("his key code is : "+ e.getKeyCode());
-        
-    }
-
-
-    
+        System.out.println("his key code is : "+ e.getKeyCode());   
+    } 
 }
