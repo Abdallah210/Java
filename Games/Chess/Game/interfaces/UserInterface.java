@@ -4,6 +4,7 @@ package Game.interfaces;
 import java.awt.Color;
 import java.awt.Font;
 
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,18 +15,22 @@ import javax.swing.JTextPane;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import Game.board.util.MySlider;
 
+import java.awt.event.KeyListener;
 
 import Game.Game;
 
-public class UserInterface extends JLabel implements ChangeListener, ActionListener{
+public class UserInterface extends JLabel implements ChangeListener, ActionListener, KeyListener{
 
     static final int TIME_MIN = 5;
     static final int TIME_MAX = 30;
@@ -75,6 +80,7 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
         this.setBounds(this.game.getFrameSize());
         this.setVerticalAlignment(JLabel.CENTER);  
         this.setHorizontalAlignment(JLabel.CENTER);
+
 
 
         // Logo :
@@ -171,10 +177,16 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
         this.plyr1Text.setBackground(new Color(0xe6e6e6));
         this.plyr1Text.setCaretColor(new Color(0x262626)); 
         this.plyr1Text.setForeground(new Color(0x262626));
+        this.plyr1Text.addKeyListener(this);
+        this.plyr1Text.setName("plyr1Text");
         this.plyr2Text.setFont(new Font("Press start 2P", Font.PLAIN, 25)); 
         this.plyr2Text.setBackground(new Color(0x262626));
         this.plyr2Text.setCaretColor(new Color(0xe6e6e6)); 
         this.plyr2Text.setForeground(new Color(0xe6e6e6));
+        this.plyr2Text.addKeyListener(this);
+        this.plyr2Text.setName("plyr2Text");
+
+
 
         JTextPane[] textPanes = {plyr1Text, plyr2Text};
 
@@ -184,6 +196,29 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
             StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
             doc.setParagraphAttributes(0, doc.getLength(), center, false);
         }
+
+        //Typing Enter:
+        /* InputMap iMap1 = plyr1Text.getInputMap(JComponent.WHEN_FOCUSED);
+        ActionMap aMap1 = plyr1Text.getActionMap();
+        InputMap iMap2 = plyr2Text.getInputMap(JComponent.WHEN_FOCUSED);
+        ActionMap aMap2 = plyr2Text.getActionMap();
+        iMap1.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+        iMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+
+        aMap1.put("enter", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+               System.out.println("enter pressed");
+            }
+         });
+
+         aMap2.put("enter", new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+               System.out.println("enter pressed");
+            }
+         }); */
 
         this.plyr1Btn.setText("OK"); 
         this.plyr1Btn.setFocusable(false);
@@ -291,7 +326,7 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
             this.plyr1Text.setText("");
             this.plyr1Btn.setEnabled(true);
             this.startButton.setEnabled(false);
-            this.plyr1Text.setEditable(true);
+            this.plyr1Text.setEditable(true);          
         }
 
         if (e.getSource()==this.plyr2BackBtn) {
@@ -324,6 +359,51 @@ public class UserInterface extends JLabel implements ChangeListener, ActionListe
                 }
             }
         }
+    }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        //Enter button :
+        if (e.getKeyCode()==10) {
+            if (e.getComponent().getName()=="plyr1Text") {
+                this.plyr1Btn.doClick();
+            } else {
+                e.consume();
+            }
+    
+            if (e.getComponent().getName()=="plyr2Text") {
+                this.plyr2Btn.doClick();
+            } else {
+                e.consume();
+            }
+        }
+
+        // ESC button :
+        if (e.getKeyCode()==27) {
+            if (e.getComponent().getName()=="plyr1Text") {
+                this.plyr1BackBtn.doClick();
+            }
+    
+            if (e.getComponent().getName()=="plyr2Text") {
+                this.plyr2BackBtn.doClick();
+            }
+        }
+    }
+
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 
 
