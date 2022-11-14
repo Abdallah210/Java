@@ -97,6 +97,10 @@ public class Cell {
         return this.y;
     }
 
+    public String getCoords() {
+        return "The abscissa :"+this.getX()+" The ordinate :"+this.getY();
+    }
+
     public Piece getPiece() {
         return this.piece;
     }

@@ -34,12 +34,12 @@ public abstract class Piece {
         return this.x;
     }
 
-    public int getTurns() {
-        return this.turns;
-    }
-
     public int getY() {
         return this.y;
+    }
+
+    public int getTurns() {
+        return this.turns;
     }
 
     public String getName() {

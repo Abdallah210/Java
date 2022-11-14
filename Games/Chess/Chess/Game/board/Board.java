@@ -1,5 +1,5 @@
 package Game.board;
-
+// destinationsCells
 
 import javax.swing.JPanel;
 
@@ -239,7 +239,6 @@ public class Board implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
         
     }
 
@@ -248,16 +247,5 @@ public class Board implements MouseListener {
         // TODO Auto-generated method stub
         
     }
-
-
-    /*
-     * 
-     * 
-     *                                 if (this.getCell(c.getX(), c.getY()).getPiece().getPlayer().isPromoDisplayed()) {
-                                    this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setText("Choose a Piece");
-                                    this.getCell(c.getX(), c.getY()).getPiece().getPlayer().turnLabel().setForeground(new Color(0xc23000));
-                                }
-     * 
-     */
 
 }

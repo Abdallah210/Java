@@ -1,11 +1,13 @@
 package Game.pieces;
 
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import Game.Game;
 import Game.Player;
 import Game.board.Board;
 import Game.board.Cell;
@@ -14,6 +16,8 @@ import Game.board.Cell;
  * King's class 
  */
 public class King extends Piece{
+
+    private List<Cell> warningCells =  new ArrayList<Cell>();
 
 
     public King(int x, int y, Board board, Player player){
@@ -28,7 +32,7 @@ public class King extends Piece{
         this.teamColor = "white";
         this.board = board;
         this.player = player;
-        this.cell = this.board.getCell(this.x, this.y);
+        this.cell = this.board.getCell(x, y);
         
         this.image = new ImageIcon("./images/Chess_klt60.png");
         
@@ -37,7 +41,6 @@ public class King extends Piece{
         } else if(!this.getPlayer().getPositionChosen()){
             this.x--;
         }
-
     }
 
 
@@ -45,6 +48,20 @@ public class King extends Piece{
     public void setTeamColor(String teamColor) {
         this.teamColor = teamColor;
         this.image = new ImageIcon("./images/Chess_kdt60.png");
+    }
+
+    public void updateWarningCells() {
+        for (Cell cell : board.getCellList()) {
+            if (cell.isFull() && cell.getPiece().getTeamColor()!=this.getTeamColor()) {    
+                for (Cell warningCell : cell.getPiece().destinationsCells()) {
+                    this.warningCells.add(warningCell);
+                }
+            }
+        }
+    }
+
+    public List<Cell> getWarningCells() {
+        return this.warningCells;
     }
 
 
@@ -154,11 +171,44 @@ public class King extends Piece{
             }
         }
 
-        //castling :
+        // Can't move to :
+        this.updateWarningCells();
+
+        for (Cell warningCell : this.warningCells) {
+            for (Cell cell : cells) {
+                if (cell==warningCell) {
+                    cells.remove(cell);
+                }
+            }
+        }
+
+        // Castling :
+
+
+            System.out.println(cells.size());
+        
 
 
         return cells;
     }
 
 
+    public static void main(String[] args) {
+        Board board = new Board();
+        Player player1 = new Player(new Color(0xf6f6f6), board, true, "a");
+        Player player2 = new Player(new Color(0x455565), board, false, "b");
+        Rook r = new Rook(0, 0, board, player2);
+        King k = new King(3, 4, board, player1);
+
+        for (Cell cell : board.getCellList()) {
+            System.out.println(cell.isFull());
+        }
+
+
+        k.updateWarningCells();
+            System.out.println(k.getWarningCells());
+            System.out.println(k.destinationsCells());
+
+
+}
 }
