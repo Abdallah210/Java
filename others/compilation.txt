@@ -1,0 +1,85 @@
+87
+/*
+    javac src/image/
+    javac src/image/color/GrayColor.java -sourcepath src/image/color -classpath classes -d classes 
+
+    javac src/rental/* -sourcepath src/rental -classpath classes -d classes
+    javac src/image/UnknownPixelException.java -sourcepath src/image -classpath classes -d classes
+    javac src/image/Image.java -sourcepath src/image -classpath classes -d classes
+    javac src/image/ImageInterface.java -sourcepath src/image -classpath classes -d classes
+    javac src/image/ImageMain.java -sourcepath src/image -classpath classes -d classes
+    javac src/image/Pixel.java -sourcepath src/image -classpath classes -d classes
+
+
+    javac src/image/util/ImageDisplayer.java -sourcepath src/image/util -classpath classes -d classes
+    javac src/image/util/ImageLoader.java -sourcepath src/image/util -classpath classes -d classes
+    
+
+java -classpath classes src/image/ImageMain.java 
+*/
+
+
+ tp6/images/cameraman.pgm        tp6/images/casablanca.pgm         tp6/images/chat.pgm        tp6/images/frog.pgm      tp6/images/fruit.pgm  tp6/images/hands.pgm   tp6/images/lamp.pgm    tp6/images/saturn.pgm tp6/images/storm.pgm
+
+
+
+javac src/rental/* -sourcepath src/rental -classpath classes -d classes
+
+
+
+test :
+compilation :
+
+javac -classpath test4poo.jar test/rental/RentalAgencyTest.java
+
+
+Execution :
+
+
+java -jar test4poo.jar rental.RentalAgencyTest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@Test(expected=IllegalArgumentException.class)
+public void dateAfterNbDaysThrowsExceptionIfNbNegative ( ) throws Exception {
+Date d = new Date(14 , Month. j u l y , 1789);
+d . nbDaysAfter ( −2 ) ;
+}
+le test est r ́eussi si une IllegalArgumentException est lanc ́e
+
+
+
+
+
+@Test(expected=IllegalArgumentException.class)
+public void dateAfterNbDaysThrowsExceptionIfNbNegative ( ) throws Exception {
+Date d = new Date(14 , Month. j u l y , 1789);
+t r y {
+d . nbDaysAfter ( +2 ) ; // ne d o i t pas l a n c e r d ’ exception
+}
+catch ( IllegalArgumentException e ) {
+f a i l ( ) ; // t e s t  ́echoue s i exception quand nb >0
+}
+d . nbDaysAfter ( −2 ) ; // d o i t l a n c e r
+
+
+
+//javac -classpath test4poo.jar test/rental/BrandFilterTest.java
+
+//javac -classpath test4poo.jar test/rental/*
+
+//java -jar test4poo.jar RentalAgencyTest

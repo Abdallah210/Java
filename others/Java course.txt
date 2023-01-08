@@ -1,0 +1,43 @@
+video : https://www.youtube.com/watch?v=grEKMHGYyns
+
+15 keys words or concepts to know :
+1 - package
+2 - public 
+3 - colon
+4 - import 
+5 - void 
+6 - object
+7 - class 
+8 - @Test
+9 - constructor 
+10 - method
+11 - CamelCase 
+12 - variable declaration 
+13 - variable 
+14 - dot 
+15 - object allocation 
+
+1 - Package :
+
+Definition :
+The package or package structure is like the file structure on your 
+computer helps organize the differrnt files of your program. the top root 
+folder of a package structure is usually the organization's domain name in 
+a reverse order.
+
+the package must be declared on the first line of Java program 
+
+package 
+
+
+List 
+
+// Obj is the type of object to be stored in List.
+ListType<objType> listName = new ListType<objType> (); 
+
+Example :
+List<String> listName = new List<String> ();
+
+Add an object in the List :
+
+listName.add(new ObjType());
